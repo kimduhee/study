@@ -4,8 +4,8 @@ https://ollama.com
 <pre><code>ollama --version
 </code></pre>
 ### 모델다운로드
-CPU: llama3.1:8b
-GPU 있음: llama3.1:70b
++ CPU: llama3.1:8b
++ GPU 있음: llama3.1:70b
 <pre><code>ollama pull llama3.1:8b
 </code></pre>
 ### 실행
