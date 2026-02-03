@@ -275,7 +275,7 @@ Reranker Top-N = 3~5
 + 의미(벡터) 기반
 + 구조/규칙 기반
 
-#### 키워드 검색(Lexical Search)
+#### 1)키워드 검색(Lexical Search)
 대표
 + **BM25**
 + TF-IDF
@@ -299,7 +299,7 @@ Reranker Top-N = 3~5
 
 규정 / 법령 / 코드 검색에 필수
 
-#### 의미 검색(Semantic / Vector Search)
+#### 2)의미 검색(Semantic / Vector Search)
 대표
 + Embedding + FAISS
 + ANN (HNSW, IVF)
@@ -322,7 +322,7 @@ Reranker Top-N = 3~5
 
 자연어 질문 / RAG 핵심
 
-#### 구조/규칙 기반 검색
+#### 3)구조/규칙 기반 검색
 대표
 + SQL WHERE
 + 필터 검색
