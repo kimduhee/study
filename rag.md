@@ -156,6 +156,32 @@ index = faiss.IndexFlatIP(768)
 + 대규모는 불리
 
 ### 서버형 벡터 DB (요즘 RAG 서비스형)
+대표
++ Milvus
++ Qdrant
++ Weaviate
++ Pinecone (SaaS)
+
+특징
++ REST / gRPC 제공
++ 메타데이터 필터
++ 스케일링 쉬움
+
+#### Milvus
+| 항목 | 내용 |
+|:---|:---|
+| 구조 | 분산 |
+| 성능 | 매우좋음 |
+| 운영 | 무거움 |
+| 실무 | 대규모 |
+
+#### Qdrant(가장 실무 친화)
++ 가볍고 빠름
++ JSON 메타데이터 필터 강력
++ 단일 노드도 OK
+<pre><code>from qdrant_client import QdrantClient
+</code></pre>
+
 ### 분산 검색엔진 기반
 ### 임베딩 DB + RDB 혼합
 
