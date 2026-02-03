@@ -238,6 +238,20 @@ reranked_docs = reranker.rerank(query, top_k_docs)
 context = reranked_docs[:3]
 </code></pre>
 
+적용 환경
++ 문서가 많을 때
++ 질문이 애매할 때
++ 한국어 문서일 때
++ 금융 / 규정 / 매뉴얼
++ 문서 10개 이하 X
++ FAQ 수준 X
++ PoC 속도 최우선 X
+
+추천 셋팅
+<pre><code>FAISS Top-K = 10~20
+Reranker Top-N = 3~5
+</code></pre>
+
 ### 1)BGE Reranker(요즘 실무 표준)
 + BAAI/bge-reranker-base
 + BAAI/bge-reranker-large 
@@ -248,4 +262,9 @@ context = reranked_docs[:3]
 + BGE-m3랑 궁합 좋음
 
 ### 2)Cohere Reranker (API)
++ SaaS 기반
++ 폐쇄망 X
+
 ### 3)MS-MARCO 계열
++ 영어 특화
++ 한국어 X
