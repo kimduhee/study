@@ -167,7 +167,7 @@ index = faiss.IndexFlatIP(768)
 + 메타데이터 필터
 + 스케일링 쉬움
 
-#### Milvus
+#### 1)Milvus
 | 항목 | 내용 |
 |:---|:---|
 | 구조 | 분산 |
@@ -175,7 +175,7 @@ index = faiss.IndexFlatIP(768)
 | 운영 | 무거움 |
 | 실무 | 대규모 |
 
-#### Qdrant(가장 실무 친화)
+#### 2)Qdrant(가장 실무 친화)
 + 가볍고 빠름
 + JSON 메타데이터 필터 강력
 + 단일 노드도 OK
