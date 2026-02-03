@@ -59,8 +59,7 @@ ollama serve
 + MiniLM보다 정확
 + 영어 의미 검색 성능 매우 좋음
 
-<pre><code>
-SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
+<pre><code>SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
 </code></pre>
 
 | 항목 | 값 |
@@ -69,7 +68,28 @@ SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
 | 언어 | 영어 |
 | 용도 | 영어 문서 RAG |
 
-#### 3)<span style="color:red">BGE 계열(요즘 실무 표준)</span>
+#### 3)BGE 계열(요즘 실무 표준)
+대표모델
++ BAAI/bge-small-en
++ BAAI/bge-base-en
++ BAAI/bge-large-en
++ BAAI/bge-m3(권장)
+
+특징
++ 멀티언어(한국어 매우 좋음)
++ 검색/질의응답 특화 학습
++ Reranker까지 풀세트 
+
+<pre><code>SentenceTransformer("BAAI/bge-m3")
+</code></pre>
+
+| 모델 | 차원 | 비고 |
+|:---|:---|:---|
+| bge-small | 384 | 가벼움 |
+| bge-base | 768 | 균형 |
+| bge-large | 1024 | 고성능 |
+| bge-m3 | 1024 | 멀티언어 최강 |
+
 #### 4)E5 계열 (Query/Passage 분리형)
 #### 5)GTE 계열 (Alibaba)
 #### 6)다국어 / 한국어 특화 모델
