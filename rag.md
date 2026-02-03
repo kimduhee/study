@@ -277,7 +277,7 @@ Reranker Top-N = 3~5
 
 #### 키워드 검색(Lexical Search)
 대표
-+ #### BM25
++ **BM25**
 + TF-IDF
 + Boolean 검색
 
