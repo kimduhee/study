@@ -75,7 +75,7 @@ ollama serve
 + BAAI/bge-small-en
 + BAAI/bge-base-en
 + BAAI/bge-large-en
-+ BAAI/bge-m3(권장)
++ **BAAI/bge-m3(권장)**
 
 특징
 + 멀티언어(한국어 매우 좋음)
@@ -296,7 +296,75 @@ Reranker Top-N = 3~5
 | 정확한 매칭 | 표현 다르면 못 찾음 |
 | 빠름 | 의미 이해X |
 | 규칙적 | 동의어 취약 |
+
 규정 / 법령 / 코드 검색에 필수
 
 #### 의미 검색(Semantic / Vector Search)
+대표
++ Embedding + FAISS
++ ANN (HNSW, IVF)
+
+특징
++ 의미가 비슷하면 검색됨
++ 표현 달라도 OK
+
+<pre><code>"로그 적재 실패"
+≈
+"데이터 수집 오류"
+</code></pre>
+
+장단점
+| 장점 | 단점 |
+|:---|:---|
+| 의미 이해 | 키워드 정확도 낮음 |
+| 자연어 강함 | 느림 |
+| 질문형 검색 | 설명 어려움 |
+
+자연어 질문 / RAG 핵심
+
 #### 구조/규칙 기반 검색
+대표
++ SQL WHERE
++ 필터 검색
++ 메타데이터 조건
+
+특징
++ 정확하고 빠름
++ 범위 축소용
+
+<pre><code>WHERE date >= '2025-01-01'
+AND system = '계정계'
+</code></pre>
+
+### Hybrid 검색 유형
+#### 1)Parallel Hybrid(가장 많이 씀)
+<pre><code>Query
+ ├─ BM25
+ └─ Vector
+     ↓
+   Merge
+     ↓
+   Reranker
+</code></pre>
++ 놓치지 않음
++ 튜닝 단순
+
+#### 2)Sequential Hybrid
+<pre><code>Query
+ ↓
+BM25
+ ↓
+Vector
+ ↓
+Reranker
+</code></pre>
++ BM25로 먼저 거름
++ Recall 감소 위험
+
+#### 3)Score Fusion Hybrid
+<pre><code>final_score = α * bm25 + (1-α) * vector
+</code></pre>
++ 튜닝 난이도 높음
++ 운영 어려움
+
+
