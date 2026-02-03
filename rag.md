@@ -126,7 +126,7 @@ doc   = "passage: FAISS는 벡터 DB이다"
 </code></pre>
 
 # 3. 벡터DB
-### *라이브러리형 (로컬 / 폐쇄망 최강)
+### * 라이브러리형 (로컬 / 폐쇄망 최강)
 대표
 + FAISS
 + Annoy
