@@ -30,8 +30,8 @@ ollama serve
 
 # 99. 기타
 + SentenceTransformer
-문장을 숫자 벡터(embedding)로 바꿔주는 모델 래퍼
-문장의 의미를 좌표로 만든다
+-- 문장을 숫자 벡터(embedding)로 바꿔주는 모델 래퍼
+-- 문장의 의미를 좌표로 만든다
 
 
 
