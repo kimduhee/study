@@ -91,8 +91,38 @@ ollama serve
 | bge-m3 | 1024 | 멀티언어 최강 |
 
 #### 4)E5 계열 (Query/Passage 분리형)
-#### 5)GTE 계열 (Alibaba)
-#### 6)다국어 / 한국어 특화 모델
+대표모델
++ intfloat/e5-small
++ intfloat/e5-base
++ intfloat/e5-large
 
+특징
++ 검색 성능 매우 우수
++ prefix 규칙 필수
+
+<pre><code>SentenceTransformer("intfloat/e5-base")
+
+query = "query: FAISS 역할"
+doc   = "passage: FAISS는 벡터 DB이다"
+</code></pre>
+
+#### 5)GTE 계열 (Alibaba)
+대표모델
++ thenlper/gte-base
++ thenlper/gte-large
+
+특징
++ BGE와 비슷한 성향
++ 한국어도 준수
++ 상대적으로 덜 알려짐
+
+#### 6)다국어 / 한국어 특화 모델
+대표모델
++ jhgan/ko-sroberta-multitask
++ snunlp/KR-SBERT-V40K-klueNLI
++ sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+
+<pre><code>SentenceTransformer("jhgan/ko-sroberta-multitask")
+</code></pre>
 
 
