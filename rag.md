@@ -69,7 +69,7 @@ SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
 | 언어 | 영어 |
 | 용도 | 영어 문서 RAG |
 
-#### 3)BGE 계열(요즘 실무 표준)
+#### 3)<span style="color:red">BGE 계열(요즘 실무 표준)</span>
 #### 4)E5 계열 (Query/Passage 분리형)
 #### 5)GTE 계열 (Alibaba)
 #### 6)다국어 / 한국어 특화 모델
