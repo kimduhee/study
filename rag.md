@@ -19,11 +19,13 @@ POST http://localhost:11434/api/embeddings
 ollama 설치된 서버에서 설정
 + 리눅스, macOS
 <pre><code>bash
+    
 export OLLAMA_HOST=0.0.0.0:11434
 ollama serve
 </code></pre>
 + window
 <pre><code>powershell
+    
 setx OLLAMA_HOST "0.0.0.0:11434"
 ollama serve
 </code></pre>
