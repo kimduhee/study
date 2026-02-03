@@ -215,3 +215,37 @@ ORDER BY embedding <-> query_embedding
 LIMIT 5;
 </code></pre>
 
+# 4. Reranker
+RAG 파이프라인에서 위치
+<pre><code>Query
+ ↓
+Embedding (SentenceTransformer)
+ ↓
+Vector DB (FAISS) → Top-K
+ ↓
+Reranker → Top-N
+ ↓
+LLM Prompt
+</code></pre>
+Reranker 없으면 LLM이 엉뚱한 문서 보고 대답
+<pre><code># 1차 검색
+top_k_docs = faiss.search(query_embedding, k=10)
+
+# 2차 정렬
+reranked_docs = reranker.rerank(query, top_k_docs)
+
+# 상위 3개만 LLM에 전달
+context = reranked_docs[:3]
+</code></pre>
+
+### 1)BGE Reranker(요즘 실무 표준)
++ BAAI/bge-reranker-base
++ BAAI/bge-reranker-large 
+<pre><code>from transformers import AutoTokenizer, AutoModelForSequenceClassification
+</code></pre>
++ 한국어 잘 됨
++ 검색용으로 학습됨
++ BGE-m3랑 궁합 좋음
+
+### 2)Cohere Reranker (API)
+### 3)MS-MARCO 계열
