@@ -28,7 +28,7 @@ setx OLLAMA_HOST "0.0.0.0:11434"
 ollama serve
 </code></pre>
 
-# 99. 기타
+# 2. 임베딩
 ### SentenceTransformer
 문장을 숫자 벡터(embedding)로 바꿔주는 모델 래퍼이며 
 문장의 의미를 좌표로 만든다
@@ -125,4 +125,37 @@ doc   = "passage: FAISS는 벡터 DB이다"
 <pre><code>SentenceTransformer("jhgan/ko-sroberta-multitask")
 </code></pre>
 
+# 3. 벡터DB
+### 라이브러리형 (로컬 / 폐쇄망 최강)
+대표
++ FAISS
++ Annoy
++ HNSWlib
+
+특징
++ Python 코드에 직접 내장
++ 서버 없음
++ 속도 빠름
++ 폐쇄망 최적
+
+#### 1)FAISS (Meta)
+<pre><code>import faiss
+index = faiss.IndexFlatIP(768)
+</code></pre>
+
+| 항목 | 내용 |
+|:---|:---|
+| 배포 | 라이브러리 |
+| 확장 | 수동 |
+| 메타데이터 | X |
+| 실무 | 금융•공공 |
+
+#### 2)HNSWlib
++ FAISS보다 간단
++ 메모리 효율 좋음
++ 대규모는 불리
+
+### 서버형 벡터 DB (요즘 RAG 서비스형)
+### 분산 검색엔진 기반
+### 임베딩 DB + RDB 혼합
 
