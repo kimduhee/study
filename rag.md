@@ -33,11 +33,18 @@ ollama serve
 문장을 숫자 벡터(embedding)로 바꿔주는 모델 래퍼이며 
 문장의 의미를 좌표로 만든다
 #### MiniLM 계열(가볍고 빠름)
-+ MPNet 계열(영어 검색 강자)
-+ BGE 계열(요즘 실무 표준)
-+ E5 계열 (Query/Passage 분리형)
-+ GTE 계열 (Alibaba)
-+ 다국어 / 한국어 특화 모델
+대표모델
++ all-MiniLM-L6-v2
++ all-MiniLM-L12-v2
+특징
++ 빠름
++ 가벼움
++ 성능은 중간
+#### MPNet 계열(영어 검색 강자)
+#### BGE 계열(요즘 실무 표준)
+#### E5 계열 (Query/Passage 분리형)
+#### GTE 계열 (Alibaba)
+#### 다국어 / 한국어 특화 모델
 
 
 
