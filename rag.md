@@ -45,6 +45,13 @@ ollama serve
 <pre><code>SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 </code></pre>
 
+| 항목 | 값 |
+|:---|:---:|
+| 차원 | 384 |
+| 언어 | 영어 위주 |
+| 용도 | PoC, 테스트, 소규모 검색 |
+
+
 #### MPNet 계열(영어 검색 강자)
 #### BGE 계열(요즘 실무 표준)
 #### E5 계열 (Query/Passage 분리형)
