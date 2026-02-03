@@ -181,9 +181,37 @@ index = faiss.IndexFlatIP(768)
 + 가볍고 빠름
 + JSON 메타데이터 필터 강력
 + 단일 노드도 OK
+
 <pre><code>from qdrant_client import QdrantClient
 </code></pre>
 
 ### 분산 검색엔진 기반
+대표
++ Elasticsearch
++ OpenSearch
+
+특징
++ 원래는 텍스트 검색
++ 벡터 검색 추가됨
++ BM25 + Vector 가능
+
+<pre><code>"knn": {
+  "field": "vector",
+  "query_vector": [...]
+}
+</code></pre>
+
 ### 임베딩 DB + RDB 혼합
+대표
++ Postgres + pgvector
++ MySQL Vector
+
+특징
++ 트랜잭션 안정성
++ 소규모 RAG 적합
+
+<pre><code>SELECT * FROM docs
+ORDER BY embedding <-> query_embedding
+LIMIT 5;
+</code></pre>
 
