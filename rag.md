@@ -36,6 +36,7 @@ ollama serve
 대표모델
 + all-MiniLM-L6-v2
 + all-MiniLM-L12-v2
+
 특징
 + 빠름
 + 가벼움
