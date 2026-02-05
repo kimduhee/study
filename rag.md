@@ -30,6 +30,7 @@ setx OLLAMA_HOST "0.0.0.0:11434"
 ollama serve
 </code></pre>
 
+
 # 2. 임베딩
 ### SentenceTransformer
 문장을 숫자 벡터(embedding)로 바꿔주는 모델 래퍼이며 
@@ -127,6 +128,7 @@ doc   = "passage: FAISS는 벡터 DB이다"
 <pre><code>SentenceTransformer("jhgan/ko-sroberta-multitask")
 </code></pre>
 
+
 # 3. 벡터DB
 ### 라이브러리형 (로컬 / 폐쇄망 최강)
 대표
@@ -215,6 +217,7 @@ ORDER BY embedding <-> query_embedding
 LIMIT 5;
 </code></pre>
 
+
 # 4. Reranker
 RAG 파이프라인에서 위치
 <pre><code>Query
@@ -269,7 +272,8 @@ Reranker Top-N = 3~5
 + 영어 특화
 + 한국어 X
 
-# 검색
+
+# 5. 검색
 ### 검색 분류
 + 키워드 기반
 + 의미(벡터) 기반
@@ -368,3 +372,16 @@ Reranker
 + 운영 어려움
 
 
+# 6. Ollama와 vLLM
+
+### 1)Ollama
+개발자·개인용, 설치 간편, 로컬 LLM 입문용
++ 목적: 로컬에서 LLM을 쉽게 쓰게 해주는 도구
++ Docker 느낌의 UX
+
+### 2)vLLM
+서버·프로덕션용, 고성능 추론 엔진, 대규모 트래픽 대응
+목적: LLM 추론을 극한으로 빠르게 하는 Inference Engine
++ 핵심 기술: PagedAttention
++ OpenAI 호환 API 서버 제공
++ 모델은 직접 준비 (HF 모델 등)
