@@ -376,12 +376,89 @@ Reranker
 
 ### 1)Ollama
 개발자·개인용, 설치 간편, 로컬 LLM 입문용
++ 개발용
 + 목적: 로컬에서 LLM을 쉽게 쓰게 해주는 도구
 + Docker 느낌의 UX
++ 모델 다운로드 + 실행 + API 서버까지 한 번에
++ 내부적으로는 llama.cpp / transformers 계열 기반
++ GPU 없어도 쓰고 싶을 때
+
+<pre><code>Client
+  ↓
+Ollama API
+  ↓
+로컬 LLM (CPU/GPU)
+</code></pre>
 
 ### 2)vLLM
 서버·프로덕션용, 고성능 추론 엔진, 대규모 트래픽 대응
-목적: LLM 추론을 극한으로 빠르게 하는 Inference Engine
++ 운영용
++ 목적: LLM 추론을 극한으로 빠르게 하는 Inference Engine
 + 핵심 기술: PagedAttention
 + OpenAI 호환 API 서버 제공
 + 모델은 직접 준비 (HF 모델 등)
++ 다수 사용자 동시 접속
++ 금융권·폐쇄망 추론 서버
++ FastAPI / Spring Boot 연계
+
+<pre><code>Client (Web / Spring / FastAPI)
+  ↓
+OpenAI-compatible API
+  ↓
+vLLM Engine
+  ↓
+GPU (H100, A100, L40, RTX 등)
+</code></pre>
+
+### 3)차이점
+| 구분 | Ollama | vLLM |
+|:---|:---|:---|
+| 성격 | 로컬 실행 도구 | 고성능 추론 엔진 |
+| 타깃 | 개인/개발자 | 서버/기업 |
+| 설치 난이도 | 매우 쉬움 | 중~상 |
+| 모델 관리 | 자동 다운로드 | 직접 다운로드 |
+| API 제공 | O (간단) | O (Open AI 호환) |
+| 성능 | 보통 | 매우 높음 |
+| 동시 요청 | 약함 | 강함(Batching)
+| GPU 활용 | 제한적 | GPU 최적화 |
+| 프로덕션 적합 | X | O |
+
+### 4)Ollama => vLLM 시 적용사항
+#### base url
+<pre><code>Ollama
+
+OLLAMA_URL = "http://localhost:11434"
+</code></pre>
+<pre><code>vLLM
+
+VLLM_URL = "http://vllm-server:8000"
+</code></pre>
+
+#### 모델명
+<pre><code>Ollama
+
+"model": "llama3"
+</code></pre>
+<pre><code>vLLM
+
+"model": "meta-llama/Llama-3-8B"
+</code></pre>
+
+#### llm client 구현
+<pre><code>공통
+
+payload = {
+    "model": model,
+    "messages": [m.dict() for m in req.messages],
+    "temperature": req.temperature,
+    "max_tokens": req.max_tokens,
+}
+</code></pre>
+<pre><code>vLLM 추가 권장
+
+payload.update({
+    "top_p": 0.9,
+    "presence_penalty": 0.0,
+    "frequency_penalty": 0.0,
+})
+</code></pre>
