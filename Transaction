@@ -7,6 +7,27 @@
 
 # Spring에서 트랜잭션 사용방법
 Spring에서는 보통 선언적 트랜잭션을 사용한다.
+<pre><code>@Transactional 사용
+@Service
+public class OrderService {
+  @Transactional
+  public void order() {
+    //재고 감소
+    //주문 생성
+    //결제 처리
+  }
+}
+</code></pre>
++ 메서드가 실행되기 전에 트랜잭션 시작
++ 정상 종료: commit
++ RuntimeException 발생: rollback
+
+# 트랜잭션 동작 방식
+Spring은 내부적으로 AOP(프록시)를 사용
++ 프록시 객체 생성
++ 메서드 호출 시 
+
+
 
 특징
 + MiniLM보다 정확
