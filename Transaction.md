@@ -26,7 +26,7 @@ public class OrderService {
 Spring은 내부적으로 AOP(프록시)를 사용
 + 프록시 객체 생성
 + 메서드 호출 시 
-> 트랜잭션 시작
++> 트랜잭션 시작
 > 실제 메서드 실행
 > 예외 여부 확인
 > commit 또는 rollback
