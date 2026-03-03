@@ -1,1 +1,22 @@
 # 기본개념
+트랜잭션은 ACID 특성을 가진다.
++ Atomicity(원자성): 모두 성공하거나 모두 실패
++ Consistency(일관성): 트랜잭션 전후 전후 데이터 일관성 유지
++ Isolation(격리성): 동시에 실행되는 트랜잭션 간 간섭 방지
++ Durability(지속성): commit 이후 데이터는 영구 저장
+
+# Spring에서 트랜잭션 사용방법
+Spring에서는 보통 선언적 트랜잭션을 사용한다.
+
+특징
++ MiniLM보다 정확
++ 영어 의미 검색 성능 매우 좋음
+
+<pre><code>SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
+</code></pre>
+
+| 항목 | 값 |
+|:---|:---|
+| 차원 | 768 |
+| 언어 | 영어 |
+| 용도 | 영어 문서 RAG |
