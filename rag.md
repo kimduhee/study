@@ -491,4 +491,41 @@ payload.update({
 + "소득 조건이 낮아진 대출"
 + 이런 것도 의미로 찾음
 
-
+# 8. CharacterTextSplitter와 RecursiveCharacterTextSplitter
+### 1)CharacterTextSplitter
+#### 특징
++ 단순 길이 기준 분할
++ 고정된 chunk_size에 맞춰 자름
++ 기본적으로 구분자(\n, " ", 등)를 하나 정해서 분리
++ 구조를 크게 고려하지 않음
+#### 동작 방식
+<pre><code>CharacterTextSplitter(
+    separator="\n",
+    chunk_size=1000,
+    chunk_overlap=200
+)</code></pre>
++ separator 기준으로 쪼갠 뒤
++ chunk_size를 넘으면 잘라냄
++ 문단이 중간에서 끊길 수 있음
+#### 단점
++ 문장/문단이 깨질 수 있음
++ 의미 단위 보존이 약함
++ RAG 품질이 떨어질 수 있음
+### 2)RecursiveCharacterTextSplitter(추천)
++ 계층적(재귀적) 분할
++ 문단 → 문장 → 단어 → 문자 순으로 점점 잘게 나눔
++ 가능한 한 의미 단위를 유지
+#### 동작 방식
+<pre><code>["\n\n", "\n", " ", ""]</code></pre>
++ 먼저 문단 단위(\n\n)로 나눔
++ chunk_size 초과 시 → 문장 단위(\n)
++ 그래도 초과 → 공백 단위
++ 최후에는 문자 단위
+### 3)차이점
+| 항목 | CharacterTextSplitter | RecursiveCharacterTextSplitter |
+|:---|:---|:---|
+| 분할 방식 | 단순 길이 기준 | 계층적 재귀 분할 |
+| 문맥 보존 | 낮음 | 높음 |
+| RAG 적합성 | 보통 | 매우 좋음 |
+| 사용 난이도 | 단순 | 조금 더 지능적 |
+| 추천 상황 | 간단 로그/데이터 | 문서, PDF, 리포트 |
