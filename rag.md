@@ -2,6 +2,19 @@
 <b>Ollama</b>는 로컬 컴퓨터에서 대형 언어 모델(LLM)을 쉽게 실행할 수 있게 해주는 런타임 및 관리 도구이며,
 쉽게 말해 ChatGPT 같은 AI 모델을 클라우드가 아니라 내 PC에서 실행하게 해주는 플랫폼이다.<br>
 https://ollama.com
+### Ollama 장점
++ 비용없음
++ 데이터 보호: 문서가 외부 서버로 안감
++ 빠른 응답: 로컬 GPU 사용가능
++ 다양한 모델: 여러 모델 쉽게 교체 가능
+### Ollama 단점
++ 모델에 따라 RAM 필요
+| 모델 | RAM |
+|:---|:---|
+| 7B | 8GB |
+| 13B | 16GB |
+| 70B | 64GB 이상 |
++ GPT-4급 모델보다 성능이 낮을 수 있음
 ### 설치확인
 <pre><code>ollama --version
 </code></pre>
@@ -15,6 +28,7 @@ https://ollama.com
 </code></pre>
 ### 엔드포인트
 <pre><code>POST http://localhost:11434/api/generate
+POST http://localhost:11434/api/chat
 POST http://localhost:11434/api/embeddings
 </code></pre>
 ### 어플리케이션과 ollama가 별도 컴퓨터 구동시
