@@ -1,6 +1,16 @@
 # RAG
 RAG(Retrieval-Augmented Generation)은 LLM(대형 언어 모델)에 외부 문서를 검색해서 답변을 생성하는 것이다.<br><br>
 <img width="1000" height="800" alt="Image" src="https://github.com/user-attachments/assets/1044683b-e6af-4aec-8e09-18060706adf6" />
+### 1)Load(문서 로딩)
++ 문서의 텍스트, 이미지, 표 추출 과정
+### 2)Split(문서 분할)
++ 문서를 작은 chunk로 나누는 과정
+### 3)Embed(벡터 생성)
++ 텍스트를 숫자 벡터로 변환하는 과정
+### 4)Store(Vector DB 저장)
++ 생성한 벡터를 검색 가능한 DB에 저장
+
+<img width="1000" height="800" alt="Image" src="https://github.com/user-attachments/assets/59dade53-f514-4023-8045-6e3cab929988" />
 
 
 # Ollama
