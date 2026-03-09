@@ -1,4 +1,5 @@
 # Ollama
+<b>Ollama</b>는 로컬 컴퓨터에서 대형 언어 모델(LLM)을 쉽게 실행할 수 있게 해주는 런타임 및 관리 도구
 https://ollama.com
 ### 설치확인
 <pre><code>ollama --version
