@@ -1,3 +1,8 @@
+# RAG
+RAG(Retrieval-Augmented Generation)은 LLM(대형 언어 모델)에 외부 문서를 검색해서 답변을 생성하는 것이다.
+
+
+
 # Ollama
 <b>Ollama</b>는 로컬 컴퓨터에서 대형 언어 모델(LLM)을 쉽게 실행할 수 있게 해주는 런타임 및 관리 도구이며,
 쉽게 말해 ChatGPT 같은 AI 모델을 클라우드가 아니라 내 PC에서 실행하게 해주는 플랫폼이다.<br>
