@@ -1,6 +1,6 @@
 # RAG
-RAG(Retrieval-Augmented Generation)은 LLM(대형 언어 모델)에 외부 문서를 검색해서 답변을 생성하는 것이다.
-
+RAG(Retrieval-Augmented Generation)은 LLM(대형 언어 모델)에 외부 문서를 검색해서 답변을 생성하는 것이다.<br><br>
+<img width="1000" height="800" alt="Image" src="https://github.com/user-attachments/assets/1044683b-e6af-4aec-8e09-18060706adf6" />
 
 
 # Ollama
