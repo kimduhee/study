@@ -1,4 +1,4 @@
-# 1. Ollama 설치
+# Ollama
 https://ollama.com
 ### 설치확인
 <pre><code>ollama --version
