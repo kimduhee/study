@@ -1,5 +1,6 @@
 # Ollama
-<b>Ollama</b>는 로컬 컴퓨터에서 대형 언어 모델(LLM)을 쉽게 실행할 수 있게 해주는 런타임 및 관리 도구
+<b>Ollama</b>는 로컬 컴퓨터에서 대형 언어 모델(LLM)을 쉽게 실행할 수 있게 해주는 런타임 및 관리 도구이며,
+쉽게 말해 ChatGPT 같은 AI 모델을 클라우드가 아니라 내 PC에서 실행하게 해주는 플랫폼이다.<br>
 https://ollama.com
 ### 설치확인
 <pre><code>ollama --version
@@ -32,7 +33,7 @@ ollama serve
 </code></pre>
 
 
-# 2. 임베딩
+# 임베딩
 ### SentenceTransformer
 문장을 숫자 벡터(embedding)로 바꿔주는 모델 래퍼이며 
 문장의 의미를 좌표로 만든다
@@ -130,7 +131,7 @@ doc   = "passage: FAISS는 벡터 DB이다"
 </code></pre>
 
 
-# 3. 벡터DB
+# 벡터DB
 ### 라이브러리형 (로컬 / 폐쇄망 최강)
 대표
 + FAISS
@@ -219,7 +220,7 @@ LIMIT 5;
 </code></pre>
 
 
-# 4. Reranker
+# Reranker
 RAG 파이프라인에서 위치
 <pre><code>Query
  ↓
@@ -274,7 +275,7 @@ Reranker Top-N = 3~5
 + 한국어 X
 
 
-# 5. 검색
+# 검색
 ### 검색 분류
 + 키워드 기반
 + 의미(벡터) 기반
@@ -373,7 +374,7 @@ Reranker
 + 운영 어려움
 
 
-# 6. Ollama와 vLLM
+# Ollama와 vLLM
 
 ### 1)Ollama
 개발자·개인용, 설치 간편, 로컬 LLM 입문용
@@ -464,7 +465,7 @@ payload.update({
 })
 </code></pre>
 
-# 7. Dense와 Sparse
+# Dense와 Sparse
 ### 1)Dense(밀집벡터)
 값이 대부분 채워져 있는 벡터를 의미한다.
 <pre><code>[0.123, -0.982, 0.551, 0.004, ... 1024차원]</code></pre>
@@ -492,7 +493,7 @@ payload.update({
 + "소득 조건이 낮아진 대출"
 + 이런 것도 의미로 찾음
 
-# 8. CharacterTextSplitter와 RecursiveCharacterTextSplitter
+# CharacterTextSplitter와 RecursiveCharacterTextSplitter
 ### 1)CharacterTextSplitter
 #### 특징
 + 단순 길이 기준 분할
