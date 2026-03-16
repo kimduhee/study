@@ -1,4 +1,5 @@
 #환경 구성
 ### 프로젝트 생성
 프로젝트 폴더를 vs code로 열어서 아래 명령어 실행
-
+<pre><code>npx create-react-app .
+</code></pre>
