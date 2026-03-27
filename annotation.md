@@ -12,3 +12,11 @@
 ### @Service
 서비스 로직 등록
 
+### @Repository
+DB접근 계층
+
+### @Controller
+view 반환
+
+### @RestController
+json 반환
