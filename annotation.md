@@ -20,3 +20,8 @@ view 반환
 
 ### @RestController
 json 반환
+
+### @Autowired
+Bean 자동주입(필드 주입 방식)
+=> 최근에는 생성자 주입방식 권장
+
