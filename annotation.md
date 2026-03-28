@@ -70,7 +70,12 @@ PK 자동생성
 ### @ConfigurationProperties
 yml/properties 매핑
 
+# 예외처리
+###  @ExceptionHandler
+특정 예외처리
 
+### @ControllerAdvice
+전역 예외처리
 
 
  
