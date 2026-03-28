@@ -33,4 +33,18 @@ Bean 자동주입(필드 주입 방식)
 ### @GetMapping, @PostMapping, @PutMapping, @DeleteMapping
 http별 메서드 맵핑
 
+### @RequestParam
+쿼리 파라미터
+
+### @PathVariable
+url 경로값
+
+### @RequestBody
+body에 담긴 json 객체반환
+
+
+# DB/JPA
+### 
+
+
  
