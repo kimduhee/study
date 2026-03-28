@@ -30,3 +30,7 @@ Bean 자동주입(필드 주입 방식)
 ### @RequestMapping
 기본 URL 매핑
 
+### @GetMapping, @PostMapping, @PutMapping, @DeleteMapping
+http별 메서드 맵핑
+
+ 
