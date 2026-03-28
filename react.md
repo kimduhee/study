@@ -1,9 +1,15 @@
 # 환경 구성
-### 프로젝트 생성
-프로젝트 폴더를 vs code로 열어서 아래 명령어 실행
-<pre><code>npx create-react-app .
+### Node.js 설치
+<pre><code>node -v
+npm -v
 </code></pre>
 
+### Vite 프로젝트 생성
+<pre><code>npm create vite@latest
+</code></pre>
++ 프로젝트 이름: 본인의 프로젝트명(rag-system)
++ 프레임워크 선택: React
++ Variant 선택: JavaScript 또는 TypeScript (추천: TS)
 
 # 문법
 <pre><code>(ref.file_name ?? "").trim();
