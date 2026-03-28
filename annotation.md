@@ -44,7 +44,33 @@ body에 담긴 json 객체반환
 
 
 # DB/JPA
-### 
+### @Entity
+DB 테이블 맵핑
+
+### @Id
+PK 설정
+
+### @GeneratedValue
+PK 자동생성
+
+### @Transactional
+트랜잭션 처리
+
+
+# 설정관리
+### @Configuration
+설정 클래스
+
+### @Bean
+수동 Bean 등록
+
+### @Value
+설정값 주입
+
+### @ConfigurationProperties
+yml/properties 매핑
+
+
 
 
  
