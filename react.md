@@ -36,6 +36,22 @@ my-app/
 
 
 # 문법
+### useState (상태)
+값저장, 변경
+
+### useEffect (생명주기)
+Api 호출, 초기화, 이벤트 처리
+
+### useRef (값 유지, DOM 접근)
+렌더링과 관련없이 값 유지
+
+### useMemo (최적화)
+연산결과 캐싱
+
+### Zustand
+전역 상태 관리(Global State Management) 도구
+
+### 기타
 <pre><code>(ref.file_name ?? "").trim();
 
 => ref.file_name이 null 또는 undefined이면 "" (빈 문자열)을 사용
