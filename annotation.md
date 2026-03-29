@@ -56,6 +56,13 @@ PK 자동생성
 ### @Transactional
 트랜잭션 처리
 
+### @Mapper
+이 인터페이스가 Mybatis Mapper라는걸 정의
+<pre><code>@Mapper
+public interface LoginMapper {
+}
+</code></pre>
+
 
 # 설정관리
 ### @Configuration
@@ -66,6 +73,9 @@ PK 자동생성
 
 ### @Value
 설정값 주입
+<pre><code>@Value("${login.url}")
+private String loginUrl;
+</code></pre>
 
 ### @ConfigurationProperties
 yml/properties 매핑
@@ -135,6 +145,33 @@ public void serviceMethods() {}
 
 <pre><code>사용
 @Before("serviceMethods()")
+</code></pre>
+
+
+# 필터 관련
+### @WebFilter
+서블릿 필터 등록
+<pre><code>@WebFilter(urlPatterns = "/*")
+public class LoggingFilter implements Filter {
+}
+</code></pre>
+
+### @ServletComponentScan
+@WebFilter, @WebServlet, @WebListener 활성화
+<pre><code>@SpringBootApplication
+@ServletComponentScan
+public class Application {
+}
+</code></pre>
+
+### OncePerRequestFilter
+요청당 한 번만 실행 보장
+<pre><code>public class JwtFilter extends OncePerRequestFilter {
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
+        filterChain.doFilter(request, response);
+    }
+}
 </code></pre>
 
 
