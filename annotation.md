@@ -75,6 +75,24 @@ yml/properties 매핑
 ### @Aspect
 해당 클래스가 AOP(공통 기능)을 담당한다고 선언
 
+### @Before
+대상 메서드 실행 전에 실행
+
+### @After
+메서드 실행 후 무조건 실행(예외 포함)
+
+### @AfterReturning
+정상적으로 끝났을 때만 실행
+
+### @AfterThrowing
+예외 발생 시 실행
+
+### @Around(중요)
+메서드 전체를 감싸서 제어하며 실행 전/후와 직접 실행까지 가능
+
+### @Pointcut
+포인트컷을 재사용 가능하게 정의
+
 
 # 예외처리
 ###  @ExceptionHandler
