@@ -74,24 +74,68 @@ yml/properties 매핑
 # AOP
 ### @Aspect
 해당 클래스가 AOP(공통 기능)을 담당한다고 선언
+<pre><code>@Aspect
+@Component
+public class LoggingAspect {
+}
+</code></pre>
 
 ### @Before
 대상 메서드 실행 전에 실행
+<pre><code>@Before("execution(* com.sample.service.*.*(..))")
+public void beforeLog() {
+    //메서드 실행 전
+}
+</code></pre>
++ \* => 모든 리턴 타입
++ com.sample.service => 해당 패키지
++ \*.\* => 모든 클래스 + 모든 메서드
++ (..) => 모든 파라미터
 
 ### @After
 메서드 실행 후 무조건 실행(예외 포함)
+<pre><code>@After("execution(* com.sample.service.*.*(..))")
+public void afterLog() {
+    //메서드 실행 
+}
+</code></pre>
 
 ### @AfterReturning
 정상적으로 끝났을 때만 실행
+<pre><code>@AfterReturning(pointcut = "execution(* com.sample.service.*.*(..))", returning = "result")
+public void afterReturningLog(Object result) {
+    System.out.println("리턴값:" + result);
+}
+</code></pre>
 
 ### @AfterThrowing
 예외 발생 시 실행
+<pre><code>@AfterThrowing(pointcut = "execution(* com.sample.service.*.*(..))", throwing = "ex")
+public void exceptionLog(Exception ex) {
+    System.out.println("예외:" + ex.getMessage());
+}
+</code></pre>
 
 ### @Around(중요)
 메서드 전체를 감싸서 제어하며 실행 전/후와 직접 실행까지 가능
+<pre><code>@Around("execution(* com.sample.service.*.*(..))")
+public void Object aroundLog(ProceedingJoinPoing joinPoint) throws Throwable {
+    System.out.println("실행전...");
+    Object result = joinPoint.proceed();
+    System.out.println("실행후...");
+    return result;
+}
+</code></pre>
 
 ### @Pointcut
 포인트컷을 재사용 가능하게 정의
+<pre><code>@APointcut("execution(* com.sample.service.*.*(..))")
+public void serviceMethods() {}
+</code></pre>
+
+<pre><code>사용
+@Before("serviceMethods()")
+</code></pre>
 
 
 # 예외처리
