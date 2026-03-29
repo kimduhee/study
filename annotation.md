@@ -70,6 +70,12 @@ PK 자동생성
 ### @ConfigurationProperties
 yml/properties 매핑
 
+
+# AOP
+### @Aspect
+해당 클래스가 AOP(공통 기능)을 담당한다고 선언
+
+
 # 예외처리
 ###  @ExceptionHandler
 특정 예외처리
