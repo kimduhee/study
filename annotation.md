@@ -22,19 +22,37 @@ public class LoginService {
 
 ### @Service
 서비스 로직 등록
+<pre><code>@Service
+public class PayService {
+}
+</code></pre>
 
 ### @Repository
 DB접근 계층
 
 ### @Controller
 view 반환
+<pre><code>@Controller
+public class PayController {
+}
+</code></pre>
 
 ### @RestController
 json 반환
+<pre><code>@RestController
+public class PayController {
+}
+</code></pre>
 
 ### @Autowired
 Bean 자동주입(필드 주입 방식)
 => 최근에는 생성자 주입방식 권장
+<pre><code>@RestController
+public class PayController {
+    @Autowired
+    private PayService payService;
+}
+</code></pre>
 
 ### @Qualifier
 같은 타입의 Bean이 여러개 있을때, 어떤 Bean을 사용할지 명확히 지정하는 어노테이션
@@ -51,10 +69,18 @@ public class PayServiceImpl implements PayService {
 </code></pre>
 
 
-
 # 웹 요청 처리
 ### @RequestMapping
 기본 URL 매핑
+<pre><code>@RestController
+@RequestMapping("/api")
+public class PayController {
+    @RequestMapping("/test")
+    public String test() {
+        return "test";
+    }
+}
+</code></pre>
 
 ### @GetMapping, @PostMapping, @PutMapping, @DeleteMapping
 http별 메서드 맵핑
