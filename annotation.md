@@ -147,6 +147,23 @@ public class PayService {
 @Transactional(isolation = Isolation.READ_COMMITTED)
 </code></pre>
 
++ 전파 옵션(Propagation)
+
+| 옵션 | 설명 |
+|:---|:---|
+| REQUIRED | 기본값(기준에 있으면 참여) |
+| REQUIRES_NEW | 항상 새 트랜잭션 |
+| SUPPORTS | 있으면 참여, 없으면 없음 |
+
++ 격리 수준(Isolation)
+
+| 수준 | 설명 |
+|:---|:---|
+| READ_UNCOMMITTED | Dirty Read 가능 |
+| READ_COMMITTED | 커밋된 데이터만 |
+| REPEATABLE_READ | 반복 조회 동일 |
+| SERIALIZABLE | 완전 격리 |
+
 ### @Mapper
 이 인터페이스가 Mybatis Mapper라는걸 정의
 <pre><code>@Mapper
