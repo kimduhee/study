@@ -4,6 +4,13 @@
 + @Configuration
 + @EnableAutoConfiguration
 + @ComponentScan
+<pre><code>@SpringBootApplication
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+}
+</code></pre>
 
 # Bean 등록/의존성 주입
 ### @Component
@@ -67,9 +74,21 @@ public interface LoginMapper {
 # 설정관리
 ### @Configuration
 설정 클래스
+<pre><code>@Configuration
+public class AppConfig {
+}
+</code></pre>
 
 ### @Bean
 수동 Bean 등록
+<pre><code>@Configuration
+public class AppConfig {
+    @Bean
+    public LoginService loginService() {
+        return new LoginServiceImpl();
+    }
+}
+</code></pre>
 
 ### @Value
 설정값 주입
