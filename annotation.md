@@ -75,7 +75,7 @@ public class PayServiceImpl implements PayService {
 <pre><code>@RestController
 @RequestMapping("/api")
 public class PayController {
-    @RequestMapping("/test")
+    @RequestMapping(value="/test", method=RequestMethod.POST)
     public String test() {
         return "test";
     }
@@ -84,15 +84,35 @@ public class PayController {
 
 ### @GetMapping, @PostMapping, @PutMapping, @DeleteMapping
 http별 메서드 맵핑
+<pre><code>@PostMapping("/test")
+public String test() {
+    return "test";
+}
+</code></pre>
 
 ### @RequestParam
 쿼리 파라미터
+<pre><code>@PostMapping("/test")
+public String test(@RequestParam String id) {
+    return "test";
+}
+</code></pre>
 
 ### @PathVariable
-url 경로값
+url 경로값을 변수로 사용
+<pre><code>@GetMapping("/test/{id}")
+public String test(@PathVariable Long id) {
+    return "test";
+}
+</code></pre>
 
 ### @RequestBody
 body에 담긴 json 객체반환
+<pre><code>@PostMapping("/test")
+public String test(@RequestBody Test test) {
+    return "test";
+}
+</code></pre>
 
 
 # DB/JPA
@@ -107,6 +127,25 @@ PK 자동생성
 
 ### @Transactional
 트랜잭션 처리
+<pre><code>@Service
+public class PayService {
+    @Transactional
+    public void myPay() {
+    }
+}
+
+롤백
+@Transactional(rollbackFor = Exception.class)
+
+읽기 전용
+@Transactional(readOnly = true)
+
+전파 옵션(Propergation)
+@Transactional(propergation = Propagation.REQUIRED)
+
+격리 수준(Isolation)
+@Transactional(isolation = Isolation.READ_COMMITTED)
+</code></pre>
 
 ### @Mapper
 이 인터페이스가 Mybatis Mapper라는걸 정의
