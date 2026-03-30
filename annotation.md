@@ -15,6 +15,10 @@ public class Application {
 # Bean 등록/의존성 주입
 ### @Component
 일반적인 Bean 등록
+<pre><code>@Component
+public class LoginService {
+}
+</code></pre>
 
 ### @Service
 서비스 로직 등록
@@ -31,6 +35,21 @@ json 반환
 ### @Autowired
 Bean 자동주입(필드 주입 방식)
 => 최근에는 생성자 주입방식 권장
+
+### @Qualifier
+같은 타입의 Bean이 여러개 있을때, 어떤 Bean을 사용할지 명확히 지정하는 어노테이션
+<pre><code>@Qualifier(payService)
+private PayService payService {
+}
+</code></pre>
+
+### @Primary
+동일 타입에서 기본값으로 지정
+<pre><code>@Primary
+public class PayServiceImpl implements PayService {
+}
+</code></pre>
+
 
 
 # 웹 요청 처리
