@@ -73,8 +73,9 @@ function Counter() {
 >&lt;input 
 >     value={text} 
 >     onChange={(e) => 
->     setText(e.target.value)
->} /&gt;
+>         setText(e.target.value)
+>     } 
+>/&gt;
 ></code></pre>
 
 ### useEffect (생명주기)
