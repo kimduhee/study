@@ -125,6 +125,15 @@ useEffect(() => {
 
 > cleanup 함수
 ><pre><code>useEffect(() => {
+>    const id = setInterval(() => {
+>        console.log("1초마다 실행");
+>    }, 1000);
+>
+>    return () => {
+>        clearInterval(id);
+>    };
+>}, []);
+></code></pre>
 
 ### useRef (값 유지, DOM 접근)
 렌더링과 관련없이 값 유지
