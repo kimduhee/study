@@ -57,17 +57,19 @@ function Counter() {
   );
 }
 
-처음 렌더링 시 count = 0
-버튼 클릭 시 count + 1 한 값이 setCount에 의해 count에 저장
-컴포넌트 다시 렌더링
-화면 업데이트
+1. 처음 렌더링 시 count = 0
+2. 버튼 클릭 시 count + 1 한 값이 setCount에 의해 count에 저장
+3. 컴포넌트 다시 렌더링
+4. 화면 업데이트
 </code></pre>
 + count: 현재값
 + setCount: count 값 변경하는 함수
 + useState(0): 초기 렌더링 시 값(0)
 
->>d
->>d
+> 자주 쓰는 패턴
+> + 입력값
+> <pre><code>npm run dev
+> </code></pre>
 
 ### useEffect (생명주기)
 Api 호출, 초기화, 이벤트 처리
