@@ -46,7 +46,7 @@ function Counter() {
 
   return (
     &lt;div&gt;
-      &lt;p&gt;{count}</p&gt;
+      &lt;p&gt;{count}&lt;/p&gt;
       &lt;button 
           onClick={() => 
               setCount(count + 1)
