@@ -124,6 +124,7 @@ useEffect(() => {
 ></code></pre>
 
 > cleanup 함수
+> + 컴포넌트가 unmount 될 때, effect가 다시 실행되기 전 
 ><pre><code>useEffect(() => {
 >    const id = setInterval(() => {
 >        console.log("1초마다 실행");
@@ -133,6 +134,26 @@ useEffect(() => {
 >        clearInterval(id);
 >    };
 >}, []);
+></code></pre>
+
+> 자주 쓰는 패턴
+> + API 호출
+><pre><code>useEffect(() => {
+>    fetch("/api.data")
+>        .then(res => res.json())
+>        .then(data => setDate(date));
+>}, []);
+>컴포넌트 로딩 시 데이터 가져오기
+></code></pre>
+> + props 변경 감지
+><pre><code>useEffect(() => {
+>    console.log("props 변경됨");
+>}, [props.value]);
+></code></pre>
+> + 상태 동기화
+><pre><code>useEffect(() => {
+>    setFilteredList(list.filter(item => item.active));
+>}, [list]
 ></code></pre>
 
 ### useRef (값 유지, DOM 접근)
