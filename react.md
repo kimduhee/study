@@ -69,9 +69,9 @@ function Counter() {
 > 자주 쓰는 패턴
 > + 입력값
 > <pre><code>const [text, setText] = useState('');
-
-<input value={text} onChange={(e) => setText(e.target.value)} />
-</code></pre>
+>
+><input value={text} onChange={(e) => setText(e.target.value)} />
+></code></pre>
 
 ### useEffect (생명주기)
 Api 호출, 초기화, 이벤트 처리
