@@ -81,7 +81,7 @@ function Counter() {
 > + 토글
 ><pre><code>const [isOpen, setIsOpen] = useState(false);
 >
-><button onClick={() => setIsOpen(!isOpen)}>열기</button>
+>&lt;button onClick={() => setIsOpen(!isOpen)}&gt;열기&lt;/button&gt;
 > 모달, 드롭다운
 ></code></pre>
 > + 객체상태
