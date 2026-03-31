@@ -9,7 +9,7 @@ npm -v
 </code></pre>
 + 프로젝트 이름: 본인의 프로젝트명(rag-system)
 + 프레임워크 선택: React
-+ Variant 선택: JavaScript 또는 TypeScript (추천: TS)
++ Variant 선택: TypeScript
 
 ### 프로젝트 이동 및 설치
 <pre><code>cd rag-system
@@ -37,7 +37,32 @@ my-app/
 
 # 문법
 ### useState (상태)
-값저장, 변경
+React에서 컴포넌트 내부 상태(state)를 관리하는 가장 기본적인 Hook이며
+화면에 표시되는 값을 기억하고, 바뀌면 자동으로 다시 렌더링해주는 기능이라고 보면 된다
+<pre><code>import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>{count}</p>
+      <button onClick={() => setCount(count + 1)}>증가</button>
+    </div>
+  );
+}
+
+처음 렌더링 시 count = 0
+버튼 클릭 시 count + 1 한 값이 setCount에 의해 count에 저장
+컴포넌트 다시 렌더링
+화면 업데이트
+</code></pre>
++ count: 현재값
++ setCount: count 값 변경하는 함수
++ useState(0): 초기 렌더링 시 값(0)
+
+>>d
+>>d
 
 ### useEffect (생명주기)
 Api 호출, 초기화, 이벤트 처리
