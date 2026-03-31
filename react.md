@@ -82,6 +82,12 @@ function Counter() {
 ><pre><code>const [isOpen, setIsOpen] = useState(false);
 >
 ><button onClick={() => setIsOpen(!isOpen)}>열기</button>
+> 모달, 드롭다운
+></code></pre>
+> + 객체상태
+><pre><code>const [user, setUser] = useState({ name: '', age: 0 });
+>
+>setUser({ ...user, name: '홍길동' });
 ></code></pre>
 
 ### useEffect (생명주기)
