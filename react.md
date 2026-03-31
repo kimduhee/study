@@ -78,6 +78,9 @@ function Counter() {
 >/&gt;
 > 로그인, 검색창, 채팅 입력창 필수 패턴 
 ></code></pre>
+> + 토글
+><pre><code>
+></code></pre>
 
 ### useEffect (생명주기)
 Api 호출, 초기화, 이벤트 처리
