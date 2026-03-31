@@ -45,10 +45,15 @@ function Counter() {
   const [count, setCount] = useState(0);
 
   return (
-    &lt;div>
-      <p>{count}</p>
-      <button onClick={() => setCount(count + 1)}>증가</button>
-    &lt;/div>
+    &lt;div&gt;
+      &lt;p&gt;{count}</p&gt;
+      &lt;button 
+          onClick={() => 
+              setCount(count + 1)
+          }&gt;
+              증가
+          &lt;/button&gt;
+    &lt;/div&gt;
   );
 }
 
