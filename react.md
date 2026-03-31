@@ -107,11 +107,25 @@ useEffect(() => {
 </code></pre>
 
 > 실행 타이밍
-><pre><code>
->useEffect(() => {
+> + 처음 렌더링 후 1번만 실행
+><pre><code>useEffect(() => {
 >    console.log("처음 렌더링");
 >}, []);
 ></code></pre>
+> + 특정 값이 바뀔 때 실행
+><pre><code>useEffect(() => {
+>    console.log("count값 변경");
+>}, [count]);
+></code></pre>
+> + 렌더링마다 실행
+><pre><code>useEffect(() => {
+>    console.log("렌더링마다 실행");
+>});
+></code></pre>
+
+> cleanup 함수
+><pre><code>useEffect(() => {
+
 ### useRef (값 유지, DOM 접근)
 렌더링과 관련없이 값 유지
 
