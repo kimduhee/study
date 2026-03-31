@@ -95,7 +95,15 @@ function Counter() {
 ></code></pre>
 
 ### useEffect (생명주기)
-Api 호출, 초기화, 이벤트 처리
+렌더링 이후에 실행해야 하는 로직을 처리
+<pre><code>useEffect(() => {
+    // 실행할 코드 (effect)
+
+    return () => {
+        // cleanup (정리 작업)
+    };
+}, [dependency]);
+</code></pre>
 
 ### useRef (값 유지, DOM 접근)
 렌더링과 관련없이 값 유지
