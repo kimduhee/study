@@ -79,7 +79,9 @@ function Counter() {
 > 로그인, 검색창, 채팅 입력창 필수 패턴 
 ></code></pre>
 > + 토글
-><pre><code>
+><pre><code>const [isOpen, setIsOpen] = useState(false);
+>
+><button onClick={() => setIsOpen(!isOpen)}>열기</button>
 ></code></pre>
 
 ### useEffect (생명주기)
