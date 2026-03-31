@@ -48,6 +48,8 @@ Api 호출, 초기화, 이벤트 처리
 ### useMemo (최적화)
 연산결과 캐싱
 
+### useContext
+
 ### Zustand
 전역 상태 관리(Global State Management) 도구
 
