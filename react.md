@@ -96,7 +96,8 @@ function Counter() {
 
 ### useEffect (생명주기)
 렌더링 이후에 실행해야 하는 로직을 처리
-<pre><code>useEffect(() => {
+<pre><code>기본구조
+useEffect(() => {
     // 실행할 코드 (effect)
 
     return () => {
@@ -105,6 +106,12 @@ function Counter() {
 }, [dependency]);
 </code></pre>
 
+> 실행 타이밍
+><pre><code>
+>useEffect(() => {
+>    console.log("처음 렌더링");
+>}, []);
+></code></pre>
 ### useRef (값 유지, DOM 접근)
 렌더링과 관련없이 값 유지
 
