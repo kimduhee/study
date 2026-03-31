@@ -31,6 +31,10 @@ my-app/
  │   ├─ main.jsx
  ├─ index.html
  ├─ package.json
+ ├─ package-lock.json
+ ├─ tsconfig.app.json
+ ├─ tsconfig.json
+ ├─ tsconfig.node.json
  └─ vite.config.js
 </code></pre>
 
