@@ -66,7 +66,7 @@ function Counter() {
 + setCount: count 값 변경하는 함수
 + useState(0): 초기 렌더링 시 값(0)
 
-> ** 자주 쓰는 패턴
+> **자주 쓰는 패턴
 > + 입력값
 ><pre><code>const [text, setText] = useState('');
 >
