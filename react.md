@@ -70,7 +70,11 @@ function Counter() {
 > + 입력값
 ><pre><code>const [text, setText] = useState('');
 >
->&lt;input value={text} onChange={(e) => setText(e.target.value)} /&gt;
+>&lt;input 
+>     value={text} 
+>     onChange={(e) => 
+>     setText(e.target.value)
+>} /&gt;
 ></code></pre>
 
 ### useEffect (생명주기)
