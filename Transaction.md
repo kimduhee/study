@@ -24,6 +24,7 @@ public class OrderService {
 + RuntimeException 발생: rollback
 
 
+
 # 트랜잭션 동작 방식
 Spring은 내부적으로 AOP(프록시)를 사용
 + 프록시 객체 생성
