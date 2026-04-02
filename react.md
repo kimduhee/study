@@ -7,9 +7,9 @@ npm -v
 ### Vite 프로젝트 생성
 <pre><code>npm create vite@latest
 </code></pre>
-> 프로젝트 이름: 본인의 프로젝트명(rag-system)<br>
-> 프레임워크 선택: React<br>
-> Variant 선택: TypeScript
+> -프로젝트 이름: 본인의 프로젝트명(rag-system)<br>
+> -프레임워크 선택: React<br>
+> -Variant 선택: TypeScript
 
 ### 프로젝트 이동 및 설치
 <pre><code>cd rag-system
@@ -87,7 +87,7 @@ const Counter = () => {
 
 &lt;button onClick={() => setIsOpen(!isOpen)}&gt;열기&lt;/button&gt;
 </code></pre>
-모달, 드롭다운
+> 모달, 드롭다운
 
 + 객체상태
 <pre><code>const [user, setUser] = useState({ name: '', age: 0 });
@@ -161,8 +161,7 @@ setUser({ ...user, name: '홍길동' });
 ### useRef (값 유지, DOM 접근)
 값을 유지하거나 DOM 요소에 직접 접근할 때 사용하는 HOOK
 + 기본구조
-<pre><code>
-const ref = useRef(initialValue);
+<pre><code>const ref = useRef(initialValue);
 </code></pre>
 
 + DOM 요소 접근
@@ -217,8 +216,7 @@ function PreviousValue() {
 ### useMemo (최적화)
 연산 결과를 메모이제이션(캐싱)해서 불필요한 재계산을 막는 HOOK
 + 기본구조
-<pre><code>
-const memoizedValue = useMemo(() => {
+<pre><code>const memoizedValue = useMemo(() => {
     return 계산식;
 }, [의존성]);
 </code></pre>
@@ -248,8 +246,8 @@ function ExpensiveComponent() {
     );
 }
 </code></pre>
-> text만 바뀌면 계산 다시 안함<br>
-> count가 바뀔 때만 재계산
+> - text만 바뀌면 계산 다시 안함<br>
+> - count가 바뀔 때만 재계산
 
 + 객체/배열 재생성 방지
 <pre><code>const user = useMemo(() => {
