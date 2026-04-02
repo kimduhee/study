@@ -172,7 +172,7 @@ const ref = useRef(initialValue);
 >        inputRef.current.focus();
 >    }, []);
 >    
->    return <input ref={inputRef} />;
+>    return &lt;input ref={inputRef} />;
 >}
 ></code></pre>
 > + 값 저장(리렌더링 없이 유지)
@@ -185,7 +185,7 @@ const ref = useRef(initialValue);
 >        countRef.current += 1;
 >        console.log(countRef.current);
 >    };
->    return <button onClick={increase}>증가<button>;
+>    return &lt;button onClick={increase}>증가&lt;button>;
 >}
 ></code></pre>
 > + 이전 값 저장
@@ -200,11 +200,11 @@ const ref = useRef(initialValue);
 >    }, [count]);
 >
 >    return (
->        <div>
->            <p>현재: { count }</p>
->            <p>이전: { preCount.current }</p>
->            <button onClick={() => setCount(count + 1)}>+</button>
->        </div>
+>        &lt;div>
+>            &lt;p>현재: { count }&lt;/p>
+>            &lt;p>이전: { preCount.current }&lt;/p>
+>            &lt;button onClick={() => setCount(count + 1)}>+&lt;/button>
+>        &lt;/div>
 >    );
 >}
 ></code></pre>
