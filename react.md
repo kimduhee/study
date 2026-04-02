@@ -157,7 +157,24 @@ useEffect(() => {
 ></code></pre>
 
 ### useRef (값 유지, DOM 접근)
-렌더링과 관련없이 값 유지
+값을 유지하거나 DOM 요소에 직접 접근할 때 사용하는 HOOK
+<pre><code>기본구조
+const ref = useRef(initialValue);
+</code></pre>
+
+> + DOM 요소 접근
+><pre><code>import { useRef, useEffect } from "react";
+>
+>funtion InputFocus() {
+>    const inputRef = useRef(null);
+>
+>    useEffect(() => {
+>        inputRef.current.focus();
+>    }, []);
+>    
+>    return <input ref={inputRef} />;
+>}
+></code></pre>
 
 ### useMemo (최적화)
 연산결과 캐싱
