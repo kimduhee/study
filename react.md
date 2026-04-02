@@ -189,6 +189,25 @@ const ref = useRef(initialValue);
 >}
 ></code></pre>
 > + 이전 값 저장
+><pre><code>import { useRef, useEffect, useState } from "react";
+>
+>function PreviousValue() {
+>    const [count, setCount] = useState(0);
+>    const preCount = useRef(0);
+>
+>    useEffect(() => {
+>        preCount.current = count;
+>    }, [count]);
+>
+>    return (
+>        <div>
+>            <p>현재: { count }</p>
+>            <p>이전: { preCount.current }</p>
+>            <button onClick={() => setCount(count + 1)}>+</button>
+>        </div>
+>    );
+>}
+></code></pre>
 
 ### useMemo (최적화)
 연산결과 캐싱
