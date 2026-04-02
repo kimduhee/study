@@ -7,7 +7,7 @@ npm -v
 ### Vite 프로젝트 생성
 <pre><code>npm create vite@latest
 </code></pre>
-> 프로젝트 이름: 본인의 프로젝트명(rag-system)
+> 프로젝트 이름: 본인의 프로젝트명(rag-system)<br>
 > 프레임워크 선택: React
 > Variant 선택: TypeScript
 
