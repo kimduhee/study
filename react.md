@@ -8,7 +8,7 @@ npm -v
 <pre><code>npm create vite@latest
 </code></pre>
 > 프로젝트 이름: 본인의 프로젝트명(rag-system)<br>
-> 프레임워크 선택: React
+> 프레임워크 선택: React<br>
 > Variant 선택: TypeScript
 
 ### 프로젝트 이동 및 설치
