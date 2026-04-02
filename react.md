@@ -254,6 +254,13 @@ const memoizedValue = useMemo(() => {
 
 
 ### useContext
+React에서 전역 상태를 간단하게 공유하기 위한 Hook이며 
+props를 계속 내려주는 “props drilling” 문제를 해결하는 데 핵심적
+<pre><code>기본구조
+import { createContext } from "react";
+
+export const UserContext = createContext();
+</code></pre>
 
 ### Zustand
 전역 상태 관리(Global State Management) 도구
