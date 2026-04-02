@@ -210,7 +210,48 @@ const ref = useRef(initialValue);
 ></code></pre>
 
 ### useMemo (최적화)
-연산결과 캐싱
+연산 결과를 메모이제이션(캐싱)해서 불필요한 재계산을 막는 HOOK
+<pre><code>기본구조
+const memoizedValue = useMemo(() => {
+    return 계산식;
+}, [의존성]);
+</code></pre>
+
+> + 기본 사용
+><pre><code>import { useMemo, useState } from "react";
+>
+>function ExpensiveComponent() {
+>    const [count, setCount] = useState(0);
+>    const [text, setText] = useState("");
+>
+>    const expensiveValue = useMemo(() => {
+>        console.log("계산 실행!");
+>        let result = 0;
+>        for (let i = 0; i < 10000000; i++) {
+>            result += i;
+>        }
+>        return result;
+>    }, [count]);
+>
+>    return (
+>        <div>
+>            <p>값: {expensiveValue}</p>
+>            <button onClick={() => setCount(count + 1)}count 증가</button>
+>            <input value={text} onChange={(e) => setText(e.target.value)} />
+>        </div>
+>    );
+>}
+>
+> - text만 바뀌면 계산 다시 안함
+> - count가 바뀔 때만 재계산
+></code></pre>
+>
+> + 객체/배열 재생성 방지
+><pre><code>const user = useMemo(() => {
+>    return { name: "kim", age: 25 };
+>}, []);
+></code></pre>
+
 
 ### useContext
 
