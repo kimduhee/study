@@ -89,17 +89,16 @@ const Counter = () => {
 </code></pre>
 모달, 드롭다운
 
++ 객체상태
+<pre><code>const [user, setUser] = useState({ name: '', age: 0 });
 
-> + 객체상태
-><pre><code>const [user, setUser] = useState({ name: '', age: 0 });
->
->setUser({ ...user, name: '홍길동' });
-></code></pre>
+setUser({ ...user, name: '홍길동' });
+</code></pre>
 
 ### useEffect (생명주기)
 렌더링 이후에 실행해야 하는 로직을 처리
-<pre><code>기본구조
-useEffect(() => {
++ 기본구조
+<pre><code>useEffect(() => {
     // 실행할 코드 (effect)
 
     return () => {
@@ -108,158 +107,162 @@ useEffect(() => {
 }, [dependency]);
 </code></pre>
 
-> 실행 타이밍
-> + 처음 렌더링 후 1번만 실행
-><pre><code>useEffect(() => {
->    console.log("처음 렌더링");
->}, []);
-></code></pre>
-> + 특정 값이 바뀔 때 실행
-><pre><code>useEffect(() => {
->    console.log("count값 변경");
->}, [count]);
-></code></pre>
-> + 렌더링마다 실행
-><pre><code>useEffect(() => {
->    console.log("렌더링마다 실행");
->});
-></code></pre>
++ 처음 렌더링 후 1번만 실행
+<pre><code>useEffect(() => {
+    console.log("처음 렌더링");
+}, []);
+</code></pre>
 
-> cleanup 함수
-> + 컴포넌트가 unmount 될 때, effect가 다시 실행되기 전 
-><pre><code>useEffect(() => {
->    const id = setInterval(() => {
->        console.log("1초마다 실행");
->    }, 1000);
->
->    return () => {
->        clearInterval(id);
->    };
->}, []);
-></code></pre>
++ 특정 값이 바뀔 때 실행
+<pre><code>useEffect(() => {
+    console.log("count값 변경");
+}, [count]);
+</code></pre>
 
-> 자주 쓰는 패턴
-> + API 호출
-><pre><code>useEffect(() => {
->    fetch("/api.data")
->        .then(res => res.json())
->        .then(data => setDate(date));
->}, []);
->컴포넌트 로딩 시 데이터 가져오기
-></code></pre>
-> + props 변경 감지
-><pre><code>useEffect(() => {
->    console.log("props 변경됨");
->}, [props.value]);
-></code></pre>
-> + 상태 동기화
-><pre><code>useEffect(() => {
->    setFilteredList(list.filter(item => item.active));
->}, [list]
-></code></pre>
+ + 렌더링마다 실행
+<pre><code>useEffect(() => {
+    console.log("렌더링마다 실행");
+});
+</code></pre>
+
++ cleanup(컴포넌트가 unmount 될 때, effect가 다시 실행되기 전)
+<pre><code>useEffect(() => {
+    const id = setInterval(() => {
+        console.log("1초마다 실행");
+    }, 1000);
+
+    return () => {
+        clearInterval(id);
+    };
+}, []);
+</code></pre>
+
+ + API 호출
+<pre><code>useEffect(() => {
+    fetch("/api.data")
+        .then(res => res.json())
+        .then(data => setDate(date));
+}, []);
+</code></pre>
+> 컴포넌트 로딩 시 데이터 가져오기
+
++ props 변경 감지
+<pre><code>useEffect(() => {
+    console.log("props 변경됨");
+}, [props.value]);
+</code></pre>
+
++ 상태 동기화
+<pre><code>useEffect(() => {
+    setFilteredList(list.filter(item => item.active));
+}, [list]
+</code></pre>
 
 ### useRef (값 유지, DOM 접근)
 값을 유지하거나 DOM 요소에 직접 접근할 때 사용하는 HOOK
-<pre><code>기본구조
++ 기본구조
+<pre><code>
 const ref = useRef(initialValue);
 </code></pre>
 
-> + DOM 요소 접근
-><pre><code>import { useRef, useEffect } from "react";
->
->funtion InputFocus() {
->    const inputRef = useRef(null);
->
->    useEffect(() => {
->        inputRef.current.focus();
->    }, []);
->    
->    return &lt;input ref={inputRef} />;
->}
-></code></pre>
-> + 값 저장(리렌더링 없이 유지)
-><pre><code>import { useRef } from "react";
->
->function Counter() {
->    const countRef = useRef(0);
->
->    const increase = () => {
->        countRef.current += 1;
->        console.log(countRef.current);
->    };
->    return &lt;button onClick={increase}>증가&lt;button>;
->}
-></code></pre>
-> + 이전 값 저장
-><pre><code>import { useRef, useEffect, useState } from "react";
->
->function PreviousValue() {
->    const [count, setCount] = useState(0);
->    const preCount = useRef(0);
->
->    useEffect(() => {
->        preCount.current = count;
->    }, [count]);
->
->    return (
->        &lt;div>
->            &lt;p>현재: { count }&lt;/p>
->            &lt;p>이전: { preCount.current }&lt;/p>
->            &lt;button onClick={() => setCount(count + 1)}>+&lt;/button>
->        &lt;/div>
->    );
->}
-></code></pre>
++ DOM 요소 접근
+<pre><code>import { useRef, useEffect } from "react";
+
+funtion InputFocus() {
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        inputRef.current.focus();
+    }, []);
+    
+    return &lt;input ref={inputRef} />;
+}
+</code></pre>
+
++ 값 저장(리렌더링 없이 유지)
+<pre><code>import { useRef } from "react";
+
+function Counter() {
+    const countRef = useRef(0);
+
+    const increase = () => {
+        countRef.current += 1;
+        console.log(countRef.current);
+    };
+    return &lt;button onClick={increase}>증가&lt;button>;
+}
+</code></pre>
+
++ 이전 값 저장
+<pre><code>import { useRef, useEffect, useState } from "react";
+
+function PreviousValue() {
+    const [count, setCount] = useState(0);
+    const preCount = useRef(0);
+
+    useEffect(() => {
+        preCount.current = count;
+    }, [count]);
+
+    return (
+        &lt;div>
+            &lt;p>현재: { count }&lt;/p>
+            &lt;p>이전: { preCount.current }&lt;/p>
+            &lt;button onClick={() => setCount(count + 1)}>+&lt;/button>
+        &lt;/div>
+    );
+}
+</code></pre>
 
 ### useMemo (최적화)
 연산 결과를 메모이제이션(캐싱)해서 불필요한 재계산을 막는 HOOK
-<pre><code>기본구조
++ 기본구조
+<pre><code>
 const memoizedValue = useMemo(() => {
     return 계산식;
 }, [의존성]);
 </code></pre>
 
-> + 기본 사용
-><pre><code>import { useMemo, useState } from "react";
->
->function ExpensiveComponent() {
->    const [count, setCount] = useState(0);
->    const [text, setText] = useState("");
->
->    const expensiveValue = useMemo(() => {
->        console.log("계산 실행!");
->        let result = 0;
->        for (let i = 0; i < 10000000; i++) {
->            result += i;
->        }
->        return result;
->    }, [count]);
->
->    return (
->        <div>
->            <p>값: {expensiveValue}</p>
->            <button onClick={() => setCount(count + 1)}count 증가</button>
->            <input value={text} onChange={(e) => setText(e.target.value)} />
->        </div>
->    );
->}
->
-> - text만 바뀌면 계산 다시 안함
-> - count가 바뀔 때만 재계산
-></code></pre>
->
-> + 객체/배열 재생성 방지
-><pre><code>const user = useMemo(() => {
->    return { name: "kim", age: 25 };
->}, []);
-></code></pre>
++ 기본 사용
+<pre><code>import { useMemo, useState } from "react";
+
+function ExpensiveComponent() {
+    const [count, setCount] = useState(0);
+    const [text, setText] = useState("");
+
+    const expensiveValue = useMemo(() => {
+        console.log("계산 실행!");
+        let result = 0;
+        for (let i = 0; i < 10000000; i++) {
+            result += i;
+        }
+        return result;
+    }, [count]);
+
+    return (
+        <div>
+            <p>값: {expensiveValue}</p>
+            <button onClick={() => setCount(count + 1)}count 증가</button>
+            <input value={text} onChange={(e) => setText(e.target.value)} />
+        </div>
+    );
+}
+</code></pre>
+> text만 바뀌면 계산 다시 안함<br>
+> count가 바뀔 때만 재계산
+
++ 객체/배열 재생성 방지
+<pre><code>const user = useMemo(() => {
+    return { name: "kim", age: 25 };
+}, []);
+</code></pre>
 
 
 ### useContext
 React에서 전역 상태를 간단하게 공유하기 위한 Hook이며 
 props를 계속 내려주는 “props drilling” 문제를 해결하는 데 핵심적
-<pre><code>기본구조
-import { createContext } from "react";
++ 기본구조
+<pre><code>import { createContext } from "react";
 
 export const UserContext = createContext();
 </code></pre>
