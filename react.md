@@ -70,18 +70,18 @@ const Counter = () => {
 > setCount: count 값 변경하는 함수
 > useState(0): 초기 렌더링 시 값(0)
 
-> 자주 쓰는 패턴
-> + 입력값
-><pre><code>const [text, setText] = useState('');
->
->&lt;input 
->     value={text} 
->     onChange={(e) => 
->         setText(e.target.value)
->     } 
->/&gt;
-> 로그인, 검색창, 채팅 입력창 필수 패턴 
-></code></pre>
++ 입력값
+<pre><code>const [text, setText] = useState('');
+
+&lt;input 
+     value={text} 
+     onChange={(e) => 
+         setText(e.target.value)
+     } 
+/&gt; 
+</code></pre>
+> 로그인, 검색창, 채팅 입력창 필수 패턴
+
 > + 토글
 ><pre><code>const [isOpen, setIsOpen] = useState(false);
 >
