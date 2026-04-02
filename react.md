@@ -43,6 +43,7 @@ my-app/
 ### useState (상태)
 React에서 컴포넌트 내부 상태(state)를 관리하는 가장 기본적인 Hook이며
 화면에 표시되는 값을 기억하고, 바뀌면 자동으로 다시 렌더링해주는 기능이라고 보면 된다
++ 기본구조
 <pre><code>import { useState } from 'react';
 
 const Counter = () => {
@@ -60,15 +61,14 @@ const Counter = () => {
     &lt;/div&gt;
   );
 }
-
-1. 처음 렌더링 시 count = 0
-2. 버튼 클릭 시 count + 1 한 값이 setCount에 의해 count에 저장
-3. 컴포넌트 다시 렌더링
-4. 화면 업데이트
 </code></pre>
-> count: 현재값
-> setCount: count 값 변경하는 함수
-> useState(0): 초기 렌더링 시 값(0)
+> count: 현재값<br>
+> setCount: count 값 변경하는 함수<br>
+> useState(0): 초기 렌더링 시 값(0)<br>
+> 1. 처음 렌더링 시 count = 0<br>
+> 2. 버튼 클릭 시 count + 1 한 값이 setCount에 의해 count에 저장<br>
+> 3. 컴포넌트 다시 렌더링<br>
+> 4. 화면 업데이트
 
 + 입력값
 <pre><code>const [text, setText] = useState('');
@@ -82,12 +82,14 @@ const Counter = () => {
 </code></pre>
 > 로그인, 검색창, 채팅 입력창 필수 패턴
 
-> + 토글
-><pre><code>const [isOpen, setIsOpen] = useState(false);
->
->&lt;button onClick={() => setIsOpen(!isOpen)}&gt;열기&lt;/button&gt;
-> 모달, 드롭다운
-></code></pre>
++ 토글
+<pre><code>const [isOpen, setIsOpen] = useState(false);
+
+&lt;button onClick={() => setIsOpen(!isOpen)}&gt;열기&lt;/button&gt;
+</code></pre>
+모달, 드롭다운
+
+
 > + 객체상태
 ><pre><code>const [user, setUser] = useState({ name: '', age: 0 });
 >
