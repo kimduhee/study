@@ -175,6 +175,20 @@ const ref = useRef(initialValue);
 >    return <input ref={inputRef} />;
 >}
 ></code></pre>
+> + 값 저장(리렌더링 없이 유지)
+><pre><code>import { useRef } from "react";
+>
+>function Counter() {
+>    const countRef = useRef(0);
+>
+>    const increase = () => {
+>        countRef.current += 1;
+>        console.log(countRef.current);
+>    };
+>    return <button onClick={increase}>증가<button>;
+>}
+></code></pre>
+> + 이전 값 저장
 
 ### useMemo (최적화)
 연산결과 캐싱
