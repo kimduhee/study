@@ -40,6 +40,7 @@ my-app/
 >node_modules<br/>
 >+ npm으로 설치한 라이브러리 저장
 >+ 예: react, axios, zustand 등
+
 >public<br/>
 >+ 정적 파일 (빌드 시 그대로 복사)
 >+ 예:favicon.ico, robots.txt, 외부 이미지
