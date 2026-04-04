@@ -27,8 +27,8 @@ my-app/
  ├─ node_modules/
  ├─ public/
  ├─ src/
- │   ├─ App.jsx
- │   ├─ main.jsx
+ │   ├─ App.tsx
+ │   ├─ main.tsx
  ├─ index.html
  ├─ package.json
  ├─ package-lock.json
@@ -44,7 +44,21 @@ my-app/
 >public<br/>
 >+ 정적 파일 (빌드 시 그대로 복사)
 >+ 예:favicon.ico, robots.txt, 외부 이미지
->+ 
+>+ import 없이 /파일명으로 접근 가능
+>+ React 코드에서 직접 import 안 해도 됨
+
+>src<br/>
+>+ 코드영역
+
+>main.tsx<br/>
+>+ 앱 시작점 (entry point)
+>+ React 앱을 실제 DOM에 붙이는 역할
+>+ index.html의 #root에 App을 렌더링
+
+>App.tsx<br/>
+>+ 최상위 컴포넌트
+>+ 모든 화면의 시작점
+
 
 
 
