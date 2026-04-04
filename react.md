@@ -37,7 +37,7 @@ my-app/
  ├─ tsconfig.node.json
  └─ vite.config.js
 </code></pre>
-+ node_modules
++ node_modules<br/>
 npm으로 설치한 라이브러리 저장
 예: react, axios, zustand 등
 
