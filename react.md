@@ -266,7 +266,7 @@ export const UserContext = createContext();
 </code></pre>
 
 ### Zustand
-전역 상태 관리(Global State Management) 도구
+전역 상태 관리(Global State Management) 도구.
 
 ### 기타
 <pre><code>(ref.file_name ?? "").trim();
