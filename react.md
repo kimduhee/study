@@ -307,7 +307,6 @@ function ExpensiveComponent() {
 }, []);
 </code></pre>
 
-
 ### useContext
 React에서 전역 상태를 간단하게 공유하기 위한 Hook이며 
 props를 계속 내려주는 “props drilling” 문제를 해결하는 데 핵심적
@@ -319,6 +318,9 @@ export const UserContext = createContext();
 
 ### Zustand
 전역 상태 관리(Global State Management) 도구.
+
+### Router
+페이지 새로고침 없이 URL만 바꿔서 화면을 전환하는 기술
 
 ### 기타
 <pre><code>(ref.file_name ?? "").trim();
