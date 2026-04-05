@@ -338,6 +338,14 @@ export const UserContext = createContext();
 &lt;/Routes>
 </code></pre>
 
++ 페이지 이동
+<pre><code>import { useNavigate } from "react-router-dom";
+
+const navigate = useNavigate();
+
+navigate("/about");
+</code></pre>
+
 ### 기타
 <pre><code>(ref.file_name ?? "").trim();
 
