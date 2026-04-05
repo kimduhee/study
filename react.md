@@ -58,7 +58,36 @@ my-app/
 >App.tsx<br/>
 >+ 최상위 컴포넌트
 >+ 모든 화면의 시작점
+>+ 라우팅
+>+ 레이아웃
+>+ 전역 상태 연결
 
+>index.html<br/>
+>+ 실제 웹 페이지의 기본 HTML
+>+ React는 여기 안에 들어감
+>+ #root가 React 앱의 시작 위치
+
+>package.json<br/>
+>+ 프로젝트 설정 + 라이브러리 목록
+>+ 실행 명령어 정의 (npm run dev)
+>+ 라이브러리 버전 관리
+
+>package-lock.json<br/>
+>+ 정확한 버전 고정 파일
+>+ 팀원 간 동일 환경 보장
+>+ “react 18.2.0 정확히 이 버전 써라” 기록
+
+>tsconfig.json / tsconfig.*.json<br/>
+>+ tsconfig.json: 공통 설정
+>+ tsconfig.app.json: 프론트 코드용 설정 (src 기준)
+>+ tsconfig.node.json: Node 환경 (vite.config 등) 설정
+
+>vite.config.js<br/>
+>+ Vite 설정 파일
+>+ React 플러그인 적용
+>+ alias 설정 (@/components)
+>+ proxy 설정 (API 연결)
+>+ 빌드 옵션
 
 
 
