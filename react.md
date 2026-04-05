@@ -329,7 +329,7 @@ export const UserContext = createContext();
 &lt;/BrowserRouter>
 </code></pre>
 
-+ Routes & Route
++ Routes,  Route
 <pre><pre>import { Routes, Route } from "react-router-dom";
 
 &lt;Routes>
