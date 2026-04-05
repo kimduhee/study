@@ -330,7 +330,7 @@ export const UserContext = createContext();
 </code></pre>
 
 + Routes,  Route
-<pre><pre>import { Routes, Route } from "react-router-dom";
+<pre><code>import { Routes, Route } from "react-router-dom";
 
 &lt;Routes>
   &lt;Route path="/" element={&lt;Home />} />
