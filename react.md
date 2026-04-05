@@ -290,11 +290,11 @@ function ExpensiveComponent() {
     }, [count]);
 
     return (
-        <div>
-            <p>값: {expensiveValue}</p>
-            <button onClick={() => setCount(count + 1)}count 증가</button>
-            <input value={text} onChange={(e) => setText(e.target.value)} />
-        </div>
+        &lt;div>
+            &lt;p>값: {expensiveValue}&lt;/p>
+            &lt;button onClick={() => setCount(count + 1)}count 증가&lt;/button>
+            &lt;input value={text} onChange={(e) => setText(e.target.value)} />
+        &lt;/div>
     );
 }
 </code></pre>
