@@ -321,6 +321,23 @@ export const UserContext = createContext();
 
 ### Router
 페이지 새로고침 없이 URL만 바꿔서 화면을 전환하는 기술
++ 라우터 시작점
+<pre><code>import { BrowserRouter } from "react-router-dom";
+
+&lt;BrowserRouter>
+  &lt;App />
+&lt;/BrowserRouter>
+</code></pre>
+
++ Routes & Route
+<pre><pre>import { Routes, Route } from "react-router-dom";
+
+&lt;Routes>
+  &lt;Route path="/" element={<Home />} />
+  &lt;Route path="/about" element={&lt;About />} />
+&lt;/Routes>
+</code></pre>
+
 
 ### 기타
 <pre><code>(ref.file_name ?? "").trim();
