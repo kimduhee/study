@@ -16,11 +16,12 @@ Runner 등록
 <pre><code>gitlab-runner register</code></pre>
 + GitLab URL: http://host.docker.internal:8080/
 + Registration token → 프로젝트 → Settings → CI/CD → Runners → Registration token
-+ Executor: shell
++ Executor: docker
 + description: local-windows-runner
 + optional: test runner for React CI/CD
 + tags: X
-
++ default Docker image: default Docker image
+  
 Runner 삭제
 <pre><code>gitlab-runner unregister --all-runners</code></pre>
 
