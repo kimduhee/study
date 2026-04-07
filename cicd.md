@@ -20,11 +20,14 @@ URL: https://www.docker.com/
 > 기존 컨테이너 확인<br>
 > <pre><code>docker ps -a</code></pre>
 >
-> 컨테이너 중지<br>
-> <pre><code>docker stop [컨테이너name]</code></pre>
+> 컨테이너(gitlab) 중지<br>
+> <pre><code>docker stop gitlab</code></pre>
 >
-> 컨테이너 삭제<br>
-> <pre><code>docker rm [컨테이너name]</code></pre>
+> 컨테이너(gitlab) 삭제<br>
+> <pre><code>docker rm gitlab</code></pre>
 >
-> 컨테이너 시작<br>
-> <pre><code>docker start [컨테이너name]</code></pre>
+> 컨테이너(gitlab) 시작<br>
+> <pre><code>docker start gitlab</code></pre>
+>
+> 컨테이너(gitlab) 로그 확인<br>
+> <pre><code>docker logs -f gitlab</code></pre>
