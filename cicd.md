@@ -25,7 +25,10 @@ Runner 삭제
 <pre><code>gitlab-runner unregister --all-runners</code></pre>
 
 Runners 확인
-<img width="1303" height="650" alt="Image" src="https://github.com/user-attachments/assets/815ff233-22b0-4efe-991b-9d6e5ba51874" />
++ Status [online] 확인
+| <img width="1303" height="650" alt="Image" src="https://github.com/user-attachments/assets/815ff233-22b0-4efe-991b-9d6e5ba51874" /> |
+|---------------|
+
 
 ### gitlab 설치
 <pre><code>docker run -d \
