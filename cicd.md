@@ -1,7 +1,29 @@
 # gitlab cicd
 ### docker desktop 설치
-URL: https://www.docker.com/
++ URL: https://www.docker.com/
 + Use WSL 2 instead of Hyper-V(recommentded) 체크 후 설치 
+
+### gitlab runner 설치
++ URL: https://docs.gitlab.com/runner/install/windows/#download-and-install-gitlab-runner
++ gitlab-runner-windows-amd64.exe 파일 다운로드 후 C:/gitlab-runner 폴더 생성후 다운로드 받은 파일을 해당 폴더에 추가
++ 파일 이름을 편의상 gitlab-runner.exe로 변경
++ 시스템 환경변수 path에 C:/gitlab-runner 추가
+
+설치 확인
+<pre><code>gitlab-runner --version</code></pre>
+
+Runner 등록
+<pre><code>gitlab-runner register</code></pre>
++ GitLab URL: http://host.docker.internal:8080/
++ Registration token → 프로젝트 → Settings → CI/CD → Runners → Registration token
++ Executor: shell
++ description: local-windows-runner
++ optional: test runner for React CI/CD
++ tags: X
+
+Runner 삭제
+<pre><code>gitlab-runner unregister --all-runners</code></pre>
+
 
 ### gitlab 설치
 <pre><code>docker run -d \
@@ -31,3 +53,4 @@ URL: https://www.docker.com/
 >
 > 컨테이너(gitlab) 로그 확인<br>
 > <pre><code>docker logs -f gitlab</code></pre>
+
