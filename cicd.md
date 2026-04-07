@@ -20,4 +20,8 @@ URL: https://www.docker.com/
 > 기존 컨테이너 확인<br>
 > <pre><code>docker ps -a</code></pre>
 >
-> 
+> 컨테이너 중지<br>
+> <pre><code>docker stop [컨테이너name]</code></pre>
+>
+> 컨테이너 삭제<br>
+> <pre><code>docker rm [컨테이너name]</code></pre>
