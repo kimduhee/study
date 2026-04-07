@@ -41,7 +41,7 @@ Runners 확인
 프로젝트 > Settings > CI/CD > Variable
 + CI_USERNAME: git 계정 아이디
 + CI_PERSONAL_TOKEN: git 계정 비번
-+ GIT_STRATEGY: none
++ GIT_STRATEGY: none => GitLab CI는 job 시작 전에 자동으로 git clone를 하는데 수동으로 처리 하기 위해 기능 끔
 
 ### gitlab 설치
 <pre><code>docker run -d \
