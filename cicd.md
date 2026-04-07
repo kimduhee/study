@@ -34,7 +34,7 @@ Runners 확인
 | <img width="1331" height="489" alt="Image" src="https://github.com/user-attachments/assets/eb20c1fe-6936-43e2-a517-2ed0e4f481b1" /> |
 |---------------|
 
-| <img width="1303" height="650" alt="Image" src="https://github.com/user-attachments/assets/815ff233-22b0-4efe-991b-9d6e5ba51874" /> |
+| <img width="1254" height="418" alt="Image" src="https://github.com/user-attachments/assets/3d58ee6f-e340-4eb3-926b-dcad8b95cbc4" /> |
 |---------------|
 
 ### Vartifacts 설정
