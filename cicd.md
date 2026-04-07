@@ -25,3 +25,6 @@ URL: https://www.docker.com/
 >
 > 컨테이너 삭제<br>
 > <pre><code>docker rm [컨테이너name]</code></pre>
+>
+> 컨테이너 시작<br>
+> <pre><code>docker start [컨테이너name]</code></pre>
