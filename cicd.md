@@ -26,9 +26,22 @@ Runner 삭제
 
 Runners 확인
 + Status [online] 확인
+
 | <img width="1303" height="650" alt="Image" src="https://github.com/user-attachments/assets/815ff233-22b0-4efe-991b-9d6e5ba51874" /> |
 |---------------|
 
+### pipelines 실행 결과
+| <img width="1303" height="650" alt="Image" src="https://github.com/user-attachments/assets/815ff233-22b0-4efe-991b-9d6e5ba51874" /> |
+|---------------|
+
+| <img width="1303" height="650" alt="Image" src="https://github.com/user-attachments/assets/815ff233-22b0-4efe-991b-9d6e5ba51874" /> |
+|---------------|
+
+### Vartifacts 설정
+프로젝트 > Settings > CI/CD > Variable
++ CI_USERNAME: git 계정 아이디
++ CI_PERSONAL_TOKEN: git 계정 비번
++ GIT_STRATEGY: none
 
 ### gitlab 설치
 <pre><code>docker run -d \
