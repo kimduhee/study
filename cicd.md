@@ -37,7 +37,7 @@ Runners 확인
 | <img width="1254" height="418" alt="Image" src="https://github.com/user-attachments/assets/3d58ee6f-e340-4eb3-926b-dcad8b95cbc4" /> |
 |---------------|
 
-### Vartifacts 설정
+### Variables 설정
 프로젝트 > Settings > CI/CD > Variable
 + CI_USERNAME: git 계정 아이디
 + CI_PERSONAL_TOKEN: git 계정 비번
