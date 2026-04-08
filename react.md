@@ -316,14 +316,25 @@ props를 계속 내려주는 “props drilling” 문제를 해결하는 데 핵
 export const UserContext = createContext();
 </code></pre>
 
-### useCall
+### useCallback
 React에서 함수 재생성을 방지하기 위한 Hook
 + 기본구조
 <pre><code>const memoizedFn = useCallback(() => {
   // 실행 로직
 }, [dependencies]);
 </code></pre>
+useCallback 미사용
+<pre><code>
+const Parent = () => {
+  const [count, setCount] = useState(0);
 
+  const handleClick = () => {
+    console.log("클릭");
+  };
+
+  return <Child onClick={handleClick} />;
+};
+</code></pre>
 
 ### Zustand
 전역 상태 관리(Global State Management) 도구.
