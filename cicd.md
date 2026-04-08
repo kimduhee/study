@@ -57,6 +57,44 @@ Runners 확인
 </code></pre>
 + 접속: http://localhost:8080
 
+### Docker Executor와 Shell Executor
+Docker Executor와 Shell Executor는 대표적인 CI/CD 도구인 GitLab CI에서 작업(Job)을 실행하는 방식이며
+어디서, 어떻게 실행되느냐가 핵심 차이이다.
+
+#### Docker Executor<br>
++ 특징
+>-Docker Executor는 각 Job을 컨테이너 안에서 격리된 환경으로 실행<br>
+>-Docker 컨테이너 기반 실행<br>
+>-실행할 때마다 새로운 컨테이너 생성 → 깨끗한 환경<br>
+>-.gitlab-ci.yml에서 이미지 지정 (python:3.11, node:18 등)<br>
+>-의존성 충돌 없음 (환경이 독립적)
+
++ 장점
+>-환경 재현성 좋음 (어디서 실행해도 동일)<br>
+>-의존성 관리 쉬움<br>
+>-보안성 높음 (격리됨)
+
++ 단점
+>-Docker 설치 및 설정 필요<br>
+>-컨테이너 생성 → 약간의 오버헤드<br>
+>-Docker-in-Docker 같은 추가 설정이 필요할 수 있음
+
+#### Shell Executor<br>
++ 특징
+>-서버(러너)에 설치된 환경 그대로 사용<br>
+>-bash, sh, powershell 등에서 실행<br>
+>-별도의 컨테이너 없음
+
++ 장점
+>-빠름 (컨테이너 생성 없음)<br>
+>-설정 간단<br>
+>-시스템 자원 직접 활용 가능
+
++ 단점
+>-환경 오염 가능성(패키지 충돌)<br>
+>-재현성 낮음 (서버 상태에 의존)<br>
+>-보안 취약 (격리 없음)
+
 ### 기타 명령어
 > 기존 컨테이너 확인<br>
 > <pre><code>docker ps -a</code></pre>
