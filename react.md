@@ -92,6 +92,70 @@ my-app/
 
 
 # 문법
+### jsx 문법
+JavaScript 안에서 HTML처럼 UI를 작성할 수 있게 해주는 확장 문법
+
+##### JSX란
+JS + HTML을 섞어서 쓰는 문법
+<pre><code>const element = &lt;h1>Hello, world!&lt;/h1>;
+</code></pre>
+> 이 코드는 실제 내부적으로 다음과 같이 변환
+<pre><code>const element = React.createElement("h1", null, "Hello, world!");
+</code></pre>
+
+##### JSX의 핵심 문법
+JS + HTML을 섞어서 쓰는 문법
+
++ JavaScript 표현식 사용
+<pre><code>const name = "Tom";
+&lt;h1>Hello, {name}&lt;/h1>
+</code></pre>
+
++ 속성(props) 사용
+<pre><code>&lt;div className="box">&lt;/div>
+</code></pre>
+> class => className
+
++ 반드시 하나의 부모 요소
+<pre><code>&lt;h1>Hello&lt;/h1>
+&lt;p>World&lt;/p>
+=> 오류
+
+&lt;div>
+  &lt;h1>Hello&lt;/h1>
+  &lt;p>World&lt;/p>
+&lt;/div>
+=> 정상
+
+&lt;>
+  &lt;h1>Hello&lt;/h1>
+  &lt;p>World&lt;/p>
+&lt;/>
+=> 정상
+</code></pre>
+
++ 조건부 렌더링
+<pre><code>const isLoggedIn = true;
+
+{isLoggedIn ? &lt;p>환영합니다&lt;/p> : &lt;p>로그인하세요&lt;/p>}
+</code></pre>
+
++ 리스트 렌더링
+<pre><code>const items = ["A", "B", "C"];
+
+&lt;ul>
+  {items.map(item => (
+    &lt;li key={item}>{item}&lt;/li>
+  ))}
+&lt;/ul>
+</code></pre>
+
++ 이벤트 처리
+<pre><code>&lt;button onClick={() => alert("클릭!")}>
+  클릭
+&lt;/button>
+</code></pre>
+
 ### useState (상태)
 React에서 컴포넌트 내부 상태(state)를 관리하는 가장 기본적인 Hook이며
 화면에 표시되는 값을 기억하고, 바뀌면 자동으로 다시 렌더링해주는 기능이라고 보면 된다
