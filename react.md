@@ -414,6 +414,20 @@ React에서 함수 재생성을 방지하기 위한 Hook
 </code></pre>
 > + 함수 재사용됨, Child 불필요한 리렌더 방지
 
+### Redux
+컴포넌트 간 상태 공유를 위한 부분으로 중앙 상태 관리 시스템이다. 특히 컴포넌트 트리가 깊어질수롤 prop 전달이 복잡해질 때 사용한다.
+
++ 기존 문제점
+<pre><code>function App() {
+  const [count, setCount] = useState(0);
+  return &lt;Child count={count} setCount={setCount} />;
+}
+</code></pre>
+> + 컴포넌트가 깊어질수록 props 계속 내려줘야 함(props drilling)
+> + 여러 컴포넌트에서 같은 상태를 써야 하면 관리가 어려움
+
+
+
 ### Zustand
 전역 상태 관리(Global State Management) 도구.
 
