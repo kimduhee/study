@@ -374,10 +374,36 @@ function ExpensiveComponent() {
 ### useContext
 React에서 전역 상태를 간단하게 공유하기 위한 Hook이며 
 props를 계속 내려주는 “props drilling” 문제를 해결하는 데 핵심적
-+ 기본구조
+
++ Context 생성
 <pre><code>import { createContext } from "react";
 
-export const UserContext = createContext();
+export const ThemeContext = createContext();
+</code></pre>
+
++ Provider로 감싸기
+<pre><code>import { ThemeContext } from "./ThemeContext";
+
+function App() {
+  const theme = "dark";
+
+  return (
+    &lt;ThemeContext.Provider value={theme}>
+      &lt;Child />
+    &lt;/ThemeContext.Provider>
+  );
+}
+</code></pre>
+
++ useContext로 사용
+<pre><code>import { useContext } from "react";
+import { ThemeContext } from "./ThemeContext";
+
+function Child() {
+  const theme = useContext(ThemeContext);
+
+  return &lt;div>{theme}&lt;/div>;
+}
 </code></pre>
 
 ### useCallback
@@ -426,7 +452,70 @@ React에서 함수 재생성을 방지하기 위한 Hook
 > + 컴포넌트가 깊어질수록 props 계속 내려줘야 함(props drilling)
 > + 여러 컴포넌트에서 같은 상태를 써야 하면 관리가 어려움
 
+##### React + Redux 기본 구성
++ store 생성
+<pre><code>// store.js
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "./counterSlice";
 
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+  },
+});
+</code></pre>
+
++ Provider로 React에 연결
+<pre><code>import { Provider } from "react-redux";
+import { store } from "./store";
+
+function App() {
+  return (
+    &lt;Provider store={store}>
+      &lt;Counter />
+    &lt;/Provider>
+  );
+}
+</code></pre>
+
++ slice 만들기 (Reducer + Action 합친 개념)
+<pre><code>// counterSlice.js
+import { createSlice } from "@reduxjs/toolkit";
+
+const counterSlice = createSlice({
+  name: "counter",
+  initialState: { value: 0 },
+  reducers: {
+    increment: (state) => {
+      state.value += 1; // 직접 수정처럼 보이지만 내부적으로 안전하게 처리됨
+    },
+    decrement: (state) => {
+      state.value -= 1;
+    },
+  },
+});
+
+export const { increment, decrement } = counterSlice.actions;
+export default counterSlice.reducer;
+</code></pre>
+
++ React 컴포넌트에서 사용
+<pre><code>import { useSelector, useDispatch } from "react-redux";
+import { increment, decrement } from "./counterSlice";
+
+function Counter() {
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
+  return (
+    &lt;div>
+      &lt;h1>{count}&lt;/h1>
+      &lt;button onClick={() => dispatch(increment())}>+&lt;/button>
+      &lt;button onClick={() => dispatch(decrement())}>-&lt;/button>
+    &lt;/div>
+  );
+}
+</code></pre>
 
 ### Zustand
 전역 상태 관리(Global State Management) 도구.
