@@ -88,3 +88,4 @@ DB 격리 수준 설정
 </code></pre>
 + Hibernate flush 방지
 + 성능 향상
+
