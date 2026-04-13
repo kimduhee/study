@@ -520,6 +520,50 @@ function Counter() {
 ### Zustand
 전역 상태 관리(Global State Management) 도구.
 
++ 설치
+<pre><code>npm install zustand</code></pre>
+
++ store 생성
+<pre><code>import { create } from 'zustand'
+
+const useStore = create((set) => ({
+  count: 0,
+  increase: () => set((state) => ({ count: state.count + 1 })),
+}))
+</code></pre>
+
++ 컴포넌트에서 사용
+<pre><code>function Counter() {
+  const count = useStore((state) => state.count)
+  const increase = useStore((state) => state.increase)
+
+  return (
+    &lt;div>
+      &lt;p>{count}&lt;/p>
+      &lt;button onClick={increase}>+&lt;/button>
+    &lt;/div>
+  )
+}
+</code></pre>
+
++ 상태값 localStorage에 저장
+<pre><code>import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
+
+export const useStore = create(
+  persist(
+    (set) => ({
+      count: 0,
+      increase: () => set((s) => ({ count: s.count + 1 })),
+    }),
+    {
+      name: 'counter-storage', // 저장 key
+    }
+  )
+)
+</code></pre>
+
+
 ### Router
 페이지 새로고침 없이 URL만 바꿔서 화면을 전환하는 기술
 + 라우터 시작점
