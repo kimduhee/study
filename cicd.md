@@ -21,7 +21,10 @@ Runner 등록
 + optional: test runner for React CI/CD
 + tags: X
 + default Docker image: default Docker image
-  
+
+Runner 확인
+<pre><code>gitlab-runner list</code></pre>
+
 Runner 삭제
 <pre><code>gitlab-runner unregister --all-runners</code></pre>
 
