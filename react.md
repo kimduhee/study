@@ -606,7 +606,60 @@ navigate("/about");
       ))}
     &lt;/ul>
 );
- 
 </code></pre>
+
++ onClick 이벤트
+<pre><code>const App = () => {
+  const handleClick = () => {
+    console.log("clicked");
+  };
+
+  return &lt;button onClick={handleClick}>클릭&lt;/button>;
+}
+</code></pre>
+
++ onChange 이벤트
+<pre><code>import { useState } from "react";
+
+const App = () => {
+  const [value, setValue] = useState("");
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
+
+  return &lt;input value={value} onChange={handleChange} />;
+}
+</code></pre>
+
++ (onKeyDown / onKeyUp) 이벤트
+<pre><code>const handleKeyDown = (e) => {
+  if (e.key === "Enter") {
+    console.log("엔터 입력");
+  }
+};
+
+&lt;input onKeyDown={handleKeyDown} />
+</code></pre>
+
++ debounce 이벤트 (검색 입력)
+<pre><code>import { useEffect, useState } from "react";
+
+function useDebounce(value, delay) {
+  const [debounced, setDebounced] = useState(value);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(timer);
+  }, [value]);
+
+  return debounced;
+}
+------------------------------------
+사용
+const [text, setText] = useState("");
+const debouncedText = useDebounce(text, 500);
+</code></pre>
+
 
 
