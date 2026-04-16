@@ -592,9 +592,21 @@ navigate("/about");
 </code></pre>
 
 ### 기타
++ null 또는 undefined이면 "" (빈 문자열)을 사용
 <pre><code>(ref.file_name ?? "").trim();
 
 => ref.file_name이 null 또는 undefined이면 "" (빈 문자열)을 사용
+</code></pre>
+
++ data 화면 처리
+<pre><code>return (
+    &lt;ul>
+      {data.map((user) => (
+        &lt;li key={user.id}>{user.name}&lt;/li>
+      ))}
+    &lt;/ul>
+  );
+ 
 </code></pre>
 
 
