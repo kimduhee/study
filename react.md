@@ -661,5 +661,22 @@ const [text, setText] = useState("");
 const debouncedText = useDebounce(text, 500);
 </code></pre>
 
++ 체크박스 / radio
+<pre><code>const [checked, setChecked] = useState(false);
 
+&lt;input
+  type="checkbox"
+  checked={checked}
+  onChange={(e) => setChecked(e.target.checked)}
+/>
+</code></pre>
+
++ 파일 업로드
+<pre><code>const handleFileChange = (e) => {
+  const file = e.target.files[0];
+  console.log(file);
+};
+
+&lt;input type="file" onChange={handleFileChange} />
+</code></pre>
 
