@@ -605,7 +605,7 @@ navigate("/about");
         &lt;li key={user.id}>{user.name}&lt;/li>
       ))}
     &lt;/ul>
-  );
+);
  
 </code></pre>
 
