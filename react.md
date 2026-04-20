@@ -11,6 +11,7 @@ npm -v
 > -프레임워크 선택: React<br>
 > -Variant 선택: TypeScript
 
+
 ### 프로젝트 이동 및 설치
 <pre><code>cd rag-system
 npm install
