@@ -442,6 +442,28 @@ React에서 함수 재생성을 방지하기 위한 Hook
 </code></pre>
 > + 함수 재사용됨, Child 불필요한 리렌더 방지
 
+
+
+
+### useActionState
+React의 비교적 최신 기능으로, 폼 액션(form action)이나 비동기 작업의 상태를 간단하게 관리하기 위한 Hook
+
++ 기본구조
+<pre><code>const [state, action, isPending] = useActionState(fn, initialState);
+</code></pre>
+> + state: 현재 상태 값
+> + action: 실행할 함수(보통 form의 action으로 전달)
+> + isPending: 실행 중인지 여부(loading 상태)
+
++ 간단 예시
+<pre><code>const [state, action, isPending] = useActionState(fn, initialState);
+</code></pre>
+
+
+
+
+
+
 ### Redux
 컴포넌트 간 상태 공유를 위한 부분으로 중앙 상태 관리 시스템이다. 특히 컴포넌트 트리가 깊어질수롤 prop 전달이 복잡해질 때 사용한다.
 
