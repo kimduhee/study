@@ -443,8 +443,6 @@ React에서 함수 재생성을 방지하기 위한 Hook
 > + 함수 재사용됨, Child 불필요한 리렌더 방지
 
 
-
-
 ### useActionState
 React의 비교적 최신 기능으로, 폼 액션(form action)이나 비동기 작업의 상태를 간단하게 관리하기 위한 Hook
 
@@ -456,12 +454,32 @@ React의 비교적 최신 기능으로, 폼 액션(form action)이나 비동기 
 > + isPending: 실행 중인지 여부(loading 상태)
 
 + 간단 예시
-<pre><code>const [state, action, isPending] = useActionState(fn, initialState);
+<pre><code>import { useActionState } from "react";
+
+async function submitForm(prevState, formData) {
+  const name = formData.get("name");
+
+  if (!name) {
+    return { error: "이름을 입력하세요" };
+  }
+
+  return { success: `안녕하세요, ${name}` };
+}
+
+export default function MyForm() {
+  const [state, formAction, isPending] = useActionState(submitForm, {});
+
+  return (
+    &lt;form action={formAction}>
+      &lt;input name="name" />
+      &lt;button disabled={isPending}>제출&lt;/button>
+
+      {state.error && &lt;p>{state.error}&lt;/p>}
+      {state.success && &lt;p>{state.success}&lt;/p>}
+    &lt;/form>
+  );
+}
 </code></pre>
-
-
-
-
 
 
 ### Redux
@@ -475,6 +493,7 @@ React의 비교적 최신 기능으로, 폼 액션(form action)이나 비동기 
 </code></pre>
 > + 컴포넌트가 깊어질수록 props 계속 내려줘야 함(props drilling)
 > + 여러 컴포넌트에서 같은 상태를 써야 하면 관리가 어려움
+
 
 ##### React + Redux 기본 구성
 + store 생성
