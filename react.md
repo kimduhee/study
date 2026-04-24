@@ -642,8 +642,14 @@ navigate("/about");
 + 검증: .env.staging
 + 운영: .env.production
 <pre><code>VITE_MAIN_URL=/main
-=> vite 프로젝트 기준 prefix는 'VITE'로 시작해야 함
 </code></pre>
+> vite 프로젝트 기준 prefix는 'VITE'로 시작해야 함
+
+#### 환경변수 사용
+<pre><code>const mainUrl = import.meta.env.VITE_MAIN_URL as string;
+</code></pre>
+  
+
 
 #### build
 npm run build를 통해서 빌드 가능하며 빌드시 프로젝트 루트에 dist 폴더 생성됨
