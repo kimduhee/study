@@ -633,6 +633,28 @@ const navigate = useNavigate();
 navigate("/about");
 </code></pre>
 
+
+### 환경변수
+#### 환경변수 파일 생성
+프로젝트 루트에 .env 파일 생성
++ 로컬: .env.local
++ 개발: .env.development
++ 검증: .env.staging
++ 운영: .env.production
+<pre><code>VITE_MAIN_URL=/main
+=> vite 프로젝트 기준 prefix는 'VITE'로 시작해야 함
+</code></pre>
+
+#### build
+npm run build를 통해서 빌드 가능하며 빌드시 프로젝트 루트에 dist 폴더 생성됨
++ 운영: npm run build
++ 개발: npm run build:development
++ 검증: npm run build:staging
+<pre><code>필드 파일 테스트
+npx serve dist
+</code></pre>
+
+npx serve dist
 ### 기타
 + null 또는 undefined이면 "" (빈 문자열)을 사용
 <pre><code>(ref.file_name ?? "").trim();
