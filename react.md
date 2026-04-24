@@ -657,8 +657,9 @@ npm run build를 통해서 빌드 가능하며 빌드시 프로젝트 루트에 
 + 운영: npm run build
 + 개발: npm run build:development
 + 검증: npm run build:staging
-<pre><code>필드 파일 테스트
-npx serve dist
+
+#### build 파일 실행 테스트
+<pre><code>npx serve dist
 </code></pre>
 
 
