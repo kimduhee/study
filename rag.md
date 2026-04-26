@@ -508,6 +508,7 @@ payload.update({
 })
 </code></pre>
 
+
 # Dense와 Sparse
 ### 1)Dense(밀집벡터)
 값이 대부분 채워져 있는 벡터를 의미한다.
