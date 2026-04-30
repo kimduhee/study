@@ -3,6 +3,7 @@
 + URL: https://www.docker.com/
 + Use WSL 2 instead of Hyper-V(recommentded) 체크 후 설치 
 
+
 ### gitlab runner 설치
 + URL: https://docs.gitlab.com/runner/install/windows/#download-and-install-gitlab-runner
 + gitlab-runner-windows-amd64.exe 파일 다운로드 후 C:/gitlab-runner 폴더 생성후 다운로드 받은 파일을 해당 폴더에 추가
