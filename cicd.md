@@ -10,6 +10,7 @@
 + 파일 이름을 편의상 gitlab-runner.exe로 변경
 + 시스템 환경변수 path에 C:/gitlab-runner 추가
 
+
 설치 확인
 <pre><code>gitlab-runner --version</code></pre>
 
