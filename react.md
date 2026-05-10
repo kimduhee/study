@@ -4,6 +4,7 @@
 npm -v
 </code></pre>
 
+
 ### Vite 프로젝트 생성
 <pre><code>npm create vite@latest
 </code></pre>
