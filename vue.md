@@ -14,11 +14,9 @@ npm -v
 
 # 문법
 ### click 이벤트
-<pre><code><button @click="increase">
-  증가
-</button>
+<pre><code>&lt;button @click="increase">증가&lt;/button>
 
-<script setup>
+&lt;script setup>
 import { ref } from 'vue'
 
 const count = ref(0)
