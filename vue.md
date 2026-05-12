@@ -24,5 +24,10 @@ const count = ref(0)
 const increase = () => {
   count.value++
 }
-</script>
+&lt;/script>
+</code></pre>
+
+### 조건
+<pre><code>&lt;p v-if="isLogin">로그인 상태&lt;/p>
+&lt;p v-else>로그아웃 상태&lt;/p>
 </code></pre>
