@@ -10,3 +10,6 @@ npm -v
 > -프로젝트 이름: 본인의 프로젝트명(vue-project)<br>
 > -프레임워크 선택: Vue<br>
 > -Variant 선택: TypeScript
+
+
+# 문법
