@@ -46,3 +46,15 @@ const items = [
 ]
 &lt;/script>
 </code></pre>
+
+### 양방향 바인딩
+<pre><code>&lt;input v-model="name" />
+
+&lt;p>{{ name }}&lt;/p>
+
+&lt;script setup>
+import { ref } from 'vue'
+
+const name = ref('')
+&lt;/script>
+</code></pre>
