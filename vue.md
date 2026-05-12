@@ -31,3 +31,18 @@ const increase = () => {
 <pre><code>&lt;p v-if="isLogin">로그인 상태&lt;/p>
 &lt;p v-else>로그아웃 상태&lt;/p>
 </code></pre>
+
+### 반복문
+<pre><code>&lt;template>
+  &lt;div v-for="item in items" :key="item.id">
+    {{ item.name }}
+  &lt;/div>
+&lt;/template>
+
+&lt;script setup>
+const items = [
+  { id: 1, name: 'kim' },
+  { id: 2, name: 'lee' }
+]
+&lt;/script>
+</code></pre>
