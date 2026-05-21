@@ -12,7 +12,6 @@ npm -v
 > -Variant 선택: TypeScript
 
 
-
 # 문법
 ### click 이벤트
 <pre><code>&lt;button @click="increase">증가&lt;/button>
