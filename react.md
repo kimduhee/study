@@ -1,758 +1,432 @@
-# 환경 구성
-### Node.js 설치
-<pre><code>node -v
-npm -v
-</code></pre>
+# React
 
+## 1. 환경 구성
 
-### Vite 프로젝트 생성
-<pre><code>npm create vite@latest
-</code></pre>
-> -프로젝트 이름: 본인의 프로젝트명(rag-system)<br>
-> -프레임워크 선택: React<br>
-> -Variant 선택: TypeScript
+### 프로젝트 생성 (Vite)
 
-### 프로젝트 이동 및 설치
-<pre><code>cd rag-system
+```bash
+npm create vite@latest
+# 프로젝트명 입력 → React → TypeScript 선택
+
+cd <프로젝트명>
 npm install
-</code></pre>
+npm run dev   # → http://localhost:5173
+```
 
-### 개발서버 실행
-<pre><code>npm run dev
-</code></pre>
-> http://localhost:5173
+### 프로젝트 구조
 
-### 기본구조
-<pre><code>
+```
 my-app/
- ├─ node_modules/
- ├─ public/
- ├─ src/
- │   ├─ App.tsx
- │   ├─ main.tsx
- ├─ index.html
- ├─ package.json
- ├─ package-lock.json
- ├─ tsconfig.app.json
- ├─ tsconfig.json
- ├─ tsconfig.node.json
- └─ vite.config.js
-</code></pre>
->node_modules<br/>
->+ npm으로 설치한 라이브러리 저장
->+ 예: react, axios, zustand 등
+├─ public/              # 정적 파일 (빌드 시 그대로 복사, /파일명으로 접근)
+├─ src/
+│   ├─ main.tsx         # 앱 진입점, index.html의 #root에 App 렌더링
+│   └─ App.tsx          # 최상위 컴포넌트 (라우팅, 레이아웃, 전역 상태)
+├─ index.html           # 기본 HTML, #root가 React 마운트 위치
+├─ package.json         # 라이브러리 목록 및 실행 명령어 정의
+├─ tsconfig.json        # TypeScript 공통 설정
+├─ tsconfig.app.json    # 프론트 코드(src) 전용 설정
+├─ tsconfig.node.json   # Node 환경(vite.config 등) 설정
+└─ vite.config.ts       # Vite 설정 (플러그인, alias, proxy, 빌드)
+```
 
->public<br/>
->+ 정적 파일 (빌드 시 그대로 복사)
->+ 예:favicon.ico, robots.txt, 외부 이미지
->+ import 없이 /파일명으로 접근 가능
->+ React 코드에서 직접 import 안 해도 됨
+---
 
->src<br/>
->+ 코드영역
+## 2. JSX 문법
 
->main.tsx<br/>
->+ 앱 시작점 (entry point)
->+ React 앱을 실제 DOM에 붙이는 역할
->+ index.html의 #root에 App을 렌더링
+JavaScript 안에서 HTML처럼 UI를 작성하는 확장 문법. 빌드 시 `React.createElement()` 호출로 변환됩니다.
 
->App.tsx<br/>
->+ 최상위 컴포넌트
->+ 모든 화면의 시작점
->+ 라우팅
->+ 레이아웃
->+ 전역 상태 연결
+```jsx
+// JSX
+const element = <h1>Hello, world!</h1>;
 
->index.html<br/>
->+ 실제 웹 페이지의 기본 HTML
->+ React는 여기 안에 들어감
->+ #root가 React 앱의 시작 위치
+// 변환 결과
+const element = React.createElement("h1", null, "Hello, world!");
+```
 
->package.json<br/>
->+ 프로젝트 설정 + 라이브러리 목록
->+ 실행 명령어 정의 (npm run dev)
->+ 라이브러리 버전 관리
+### 핵심 규칙
 
->package-lock.json<br/>
->+ 정확한 버전 고정 파일
->+ 팀원 간 동일 환경 보장
->+ “react 18.2.0 정확히 이 버전 써라” 기록
+```jsx
+// 1. JS 표현식은 {} 안에
+const name = "Tom";
+<h1>Hello, {name}</h1>
 
->tsconfig.json / tsconfig.*.json<br/>
->+ tsconfig.json: 공통 설정
->+ tsconfig.app.json: 프론트 코드용 설정 (src 기준)
->+ tsconfig.node.json: Node 환경 (vite.config 등) 설정
+// 2. class → className
+<div className="box"></div>
 
->vite.config.js<br/>
->+ Vite 설정 파일
->+ React 플러그인 적용
->+ alias 설정 (@/components)
->+ proxy 설정 (API 연결)
->+ 빌드 옵션
+// 3. 반드시 하나의 루트 요소 (또는 Fragment 사용)
+<>
+  <h1>Hello</h1>
+  <p>World</p>
+</>
 
+// 4. 조건부 렌더링
+{isLoggedIn ? <p>환영합니다</p> : <p>로그인하세요</p>}
 
+// 5. 리스트 렌더링 - key 필수
+{items.map(item => <li key={item}>{item}</li>)}
 
-# 문법
-### jsx 문법
-JavaScript 안에서 HTML처럼 UI를 작성할 수 있게 해주는 확장 문법
+// 6. 이벤트 처리
+<button onClick={() => alert("클릭!")}>클릭</button>
+```
 
-##### JSX란
-JS + HTML을 섞어서 쓰는 문법
-<pre><code>const element = &lt;h1>Hello, world!&lt;/h1>;
-</code></pre>
-> 이 코드는 실제 내부적으로 다음과 같이 변환
-<pre><code>const element = React.createElement("h1", null, "Hello, world!");
-</code></pre>
+---
 
-##### JSX의 핵심 문법
-JS + HTML을 섞어서 쓰는 문법
+## 3. Hooks
 
-+ JavaScript 표현식 사용
-<pre><code>const name = "Tom";
-&lt;h1>Hello, {name}&lt;/h1>
-</code></pre>
+### useState - 상태 관리
 
-+ 속성(props) 사용
-<pre><code>&lt;div className="box">&lt;/div>
-</code></pre>
-> class => className
+컴포넌트 내부 상태를 관리하며, 값이 바뀌면 자동으로 리렌더링합니다.
 
-+ 반드시 하나의 부모 요소
-<pre><code>&lt;h1>Hello&lt;/h1>
-&lt;p>World&lt;/p>
-=> 오류
+```jsx
+const [count, setCount] = useState(0);                    // 숫자
+const [text, setText] = useState('');                      // 입력값
+const [isOpen, setIsOpen] = useState(false);               // 토글
+const [user, setUser] = useState({ name: '', age: 0 });    // 객체
 
-&lt;div>
-  &lt;h1>Hello&lt;/h1>
-  &lt;p>World&lt;/p>
-&lt;/div>
-=> 정상
-
-&lt;>
-  &lt;h1>Hello&lt;/h1>
-  &lt;p>World&lt;/p>
-&lt;/>
-=> 정상
-</code></pre>
-
-+ 조건부 렌더링
-<pre><code>const isLoggedIn = true;
-
-{isLoggedIn ? &lt;p>환영합니다&lt;/p> : &lt;p>로그인하세요&lt;/p>}
-</code></pre>
-
-+ 리스트 렌더링
-<pre><code>const items = ["A", "B", "C"];
-
-&lt;ul>
-  {items.map(item => (
-    &lt;li key={item}>{item}&lt;/li>
-  ))}
-&lt;/ul>
-</code></pre>
-
-+ 이벤트 처리
-<pre><code>&lt;button onClick={() => alert("클릭!")}>
-  클릭
-&lt;/button>
-</code></pre>
-
-### useState (상태)
-React에서 컴포넌트 내부 상태(state)를 관리하는 가장 기본적인 Hook이며
-화면에 표시되는 값을 기억하고, 바뀌면 자동으로 다시 렌더링해주는 기능이라고 보면 된다
-+ 기본구조
-<pre><code>import { useState } from 'react';
-
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
-  return (
-    &lt;div&gt;
-      &lt;p&gt;{count}&lt;/p&gt;
-      &lt;button 
-          onClick={() => 
-              setCount(count + 1)
-          }&gt;
-              증가
-          &lt;/button&gt;
-    &lt;/div&gt;
-  );
-}
-</code></pre>
-> count: 현재값<br>
-> setCount: count 값 변경하는 함수<br>
-> useState(0): 초기 렌더링 시 값(0)<br>
-> 1. 처음 렌더링 시 count = 0<br>
-> 2. 버튼 클릭 시 count + 1 한 값이 setCount에 의해 count에 저장<br>
-> 3. 컴포넌트 다시 렌더링<br>
-> 4. 화면 업데이트
-
-+ 입력값
-<pre><code>const [text, setText] = useState('');
-
-&lt;input 
-     value={text} 
-     onChange={(e) => 
-         setText(e.target.value)
-     } 
-/&gt; 
-</code></pre>
-> 로그인, 검색창, 채팅 입력창 필수 패턴
-
-+ 토글
-<pre><code>const [isOpen, setIsOpen] = useState(false);
-
-&lt;button onClick={() => setIsOpen(!isOpen)}&gt;열기&lt;/button&gt;
-</code></pre>
-> 모달, 드롭다운
-
-+ 객체상태
-<pre><code>const [user, setUser] = useState({ name: '', age: 0 });
-
+// 객체 업데이트는 스프레드 연산자 사용
 setUser({ ...user, name: '홍길동' });
-</code></pre>
+```
 
-### useEffect (생명주기)
-렌더링 이후에 실행해야 하는 로직을 처리
-+ 기본구조
-<pre><code>useEffect(() => {
-    // 실행할 코드 (effect)
-
-    return () => {
-        // cleanup (정리 작업)
-    };
-}, [dependency]);
-</code></pre>
-
-+ 처음 렌더링 후 1번만 실행
-<pre><code>useEffect(() => {
-    console.log("처음 렌더링");
-}, []);
-</code></pre>
-
-+ 특정 값이 바뀔 때 실행
-<pre><code>useEffect(() => {
-    console.log("count값 변경");
-}, [count]);
-</code></pre>
-
- + 렌더링마다 실행
-<pre><code>useEffect(() => {
-    console.log("렌더링마다 실행");
-});
-</code></pre>
-
-+ cleanup(컴포넌트가 unmount 될 때, effect가 다시 실행되기 전)
-<pre><code>useEffect(() => {
-    const id = setInterval(() => {
-        console.log("1초마다 실행");
-    }, 1000);
-
-    return () => {
-        clearInterval(id);
-    };
-}, []);
-</code></pre>
-
- + API 호출
-<pre><code>useEffect(() => {
-    fetch("/api.data")
-        .then(res => res.json())
-        .then(data => setDate(date));
-}, []);
-</code></pre>
-> 컴포넌트 로딩 시 데이터 가져오기
-
-+ props 변경 감지
-<pre><code>useEffect(() => {
-    console.log("props 변경됨");
-}, [props.value]);
-</code></pre>
-
-+ 상태 동기화
-<pre><code>useEffect(() => {
-    setFilteredList(list.filter(item => item.active));
-}, [list]
-</code></pre>
-
-### useRef (값 유지, DOM 접근)
-값을 유지하거나 DOM 요소에 직접 접근할 때 사용하는 HOOK
-+ 기본구조
-<pre><code>const ref = useRef(initialValue);
-</code></pre>
-
-+ DOM 요소 접근
-<pre><code>import { useRef, useEffect } from "react";
-
-funtion InputFocus() {
-    const inputRef = useRef(null);
-
-    useEffect(() => {
-        inputRef.current.focus();
-    }, []);
-    
-    return &lt;input ref={inputRef} />;
-}
-</code></pre>
-
-+ 값 저장(리렌더링 없이 유지)
-<pre><code>import { useRef } from "react";
-
+```jsx
 function Counter() {
-    const countRef = useRef(0);
-
-    const increase = () => {
-        countRef.current += 1;
-        console.log(countRef.current);
-    };
-    return &lt;button onClick={increase}>증가&lt;button>;
-}
-</code></pre>
-
-+ 이전 값 저장
-<pre><code>import { useRef, useEffect, useState } from "react";
-
-function PreviousValue() {
-    const [count, setCount] = useState(0);
-    const preCount = useRef(0);
-
-    useEffect(() => {
-        preCount.current = count;
-    }, [count]);
-
-    return (
-        &lt;div>
-            &lt;p>현재: { count }&lt;/p>
-            &lt;p>이전: { preCount.current }&lt;/p>
-            &lt;button onClick={() => setCount(count + 1)}>+&lt;/button>
-        &lt;/div>
-    );
-}
-</code></pre>
-
-### useMemo (최적화)
-연산 결과를 메모이제이션(캐싱)해서 불필요한 재계산을 막는 HOOK
-+ 기본구조
-<pre><code>const memoizedValue = useMemo(() => {
-    return 계산식;
-}, [의존성]);
-</code></pre>
-
-+ 기본 사용
-<pre><code>import { useMemo, useState } from "react";
-
-function ExpensiveComponent() {
-    const [count, setCount] = useState(0);
-    const [text, setText] = useState("");
-
-    const expensiveValue = useMemo(() => {
-        console.log("계산 실행!");
-        let result = 0;
-        for (let i = 0; i < 10000000; i++) {
-            result += i;
-        }
-        return result;
-    }, [count]);
-
-    return (
-        &lt;div>
-            &lt;p>값: {expensiveValue}&lt;/p>
-            &lt;button onClick={() => setCount(count + 1)}count 증가&lt;/button>
-            &lt;input value={text} onChange={(e) => setText(e.target.value)} />
-        &lt;/div>
-    );
-}
-</code></pre>
-> - text만 바뀌면 계산 다시 안함<br>
-> - count가 바뀔 때만 재계산
-
-+ 객체/배열 재생성 방지
-<pre><code>const user = useMemo(() => {
-    return { name: "kim", age: 25 };
-}, []);
-</code></pre>
-
-### useContext
-React에서 전역 상태를 간단하게 공유하기 위한 Hook이며 
-props를 계속 내려주는 “props drilling” 문제를 해결하는 데 핵심적
-
-+ Context 생성
-<pre><code>import { createContext } from "react";
-
-export const ThemeContext = createContext();
-</code></pre>
-
-+ Provider로 감싸기
-<pre><code>import { ThemeContext } from "./ThemeContext";
-
-function App() {
-  const theme = "dark";
-
+  const [count, setCount] = useState(0);
   return (
-    &lt;ThemeContext.Provider value={theme}>
-      &lt;Child />
-    &lt;/ThemeContext.Provider>
+    <div>
+      <p>{count}</p>
+      <button onClick={() => setCount(count + 1)}>증가</button>
+    </div>
   );
 }
-</code></pre>
+```
 
-+ useContext로 사용
-<pre><code>import { useContext } from "react";
-import { ThemeContext } from "./ThemeContext";
+---
 
+### useEffect - 사이드 이펙트
+
+렌더링 이후 실행할 로직(API 호출, 구독, 타이머 등)을 처리합니다.
+
+```jsx
+useEffect(() => { ... });           // 매 렌더링마다 실행
+useEffect(() => { ... }, []);       // 마운트 시 1회만 실행
+useEffect(() => { ... }, [count]);  // count 변경 시마다 실행
+```
+
+```jsx
+// API 호출
+useEffect(() => {
+  fetch("/api/data")
+    .then(res => res.json())
+    .then(data => setData(data));
+}, []);
+
+// 타이머 - cleanup으로 메모리 누수 방지
+useEffect(() => {
+  const id = setInterval(() => console.log("1초마다"), 1000);
+  return () => clearInterval(id);
+}, []);
+
+// 상태 동기화
+useEffect(() => {
+  setFilteredList(list.filter(item => item.active));
+}, [list]);
+```
+
+---
+
+### useRef - DOM 접근 / 값 유지
+
+리렌더링 없이 값을 유지하거나 DOM 요소에 직접 접근할 때 사용합니다.
+
+```jsx
+// DOM 접근 (마운트 시 input에 포커스)
+function InputFocus() {
+  const inputRef = useRef(null);
+  useEffect(() => { inputRef.current.focus(); }, []);
+  return <input ref={inputRef} />;
+}
+
+// 리렌더링 없이 값 유지
+function Counter() {
+  const countRef = useRef(0);
+  const increase = () => {
+    countRef.current += 1;
+    console.log(countRef.current);
+  };
+  return <button onClick={increase}>증가</button>;
+}
+
+// 이전 값 저장
+function PreviousValue() {
+  const [count, setCount] = useState(0);
+  const prevCount = useRef(0);
+
+  useEffect(() => {
+    prevCount.current = count;
+  }, [count]);
+
+  return (
+    <div>
+      <p>현재: {count}</p>
+      <p>이전: {prevCount.current}</p>
+      <button onClick={() => setCount(count + 1)}>+</button>
+    </div>
+  );
+}
+```
+
+---
+
+### useMemo - 연산 최적화
+
+연산 결과를 캐싱해 불필요한 재계산을 방지합니다.
+
+```jsx
+// count가 바뀔 때만 재계산, text 변경 시엔 캐시 반환
+const expensiveValue = useMemo(() => {
+  let result = 0;
+  for (let i = 0; i < 10_000_000; i++) result += i;
+  return result;
+}, [count]);
+
+// 객체/배열 재생성 방지
+const user = useMemo(() => ({ name: "kim", age: 25 }), []);
+```
+
+---
+
+### useCallback - 함수 재생성 방지
+
+```jsx
+// 미사용: count 바뀔 때마다 handleClick 새로 생성 → Child 불필요한 리렌더
+const handleClick = () => console.log("클릭");
+
+// 사용: 함수 재사용 → Child 리렌더 방지
+const handleClick = useCallback(() => console.log("클릭"), []);
+
+return <Child onClick={handleClick} />;
+```
+
+---
+
+### useContext - 전역 상태 공유
+
+props drilling 없이 컴포넌트 트리 어디서든 상태를 공유합니다.
+
+```jsx
+// 1. Context 생성
+export const ThemeContext = createContext();
+
+// 2. Provider로 감싸기
+function App() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <Child />
+    </ThemeContext.Provider>
+  );
+}
+
+// 3. 하위 컴포넌트에서 사용
 function Child() {
   const theme = useContext(ThemeContext);
-
-  return &lt;div>{theme}&lt;/div>;
+  return <div>{theme}</div>;
 }
-</code></pre>
+```
 
-### useCallback
-React에서 함수 재생성을 방지하기 위한 Hook
-+ 기본구조
-<pre><code>const memoizedFn = useCallback(() => {
-  // 실행 로직
-}, [dependencies]);
-</code></pre>
+---
 
-+ useCallback 미사용
-<pre><code>const Parent = () => {
-  const [count, setCount] = useState(0);
+### useActionState - 폼 액션 상태 관리 (React 19+)
 
-  const handleClick = () => {
-    console.log("클릭");
-  };
+폼 액션과 비동기 작업의 상태를 관리합니다.
 
-  return &lt;Child onClick={handleClick} />;
-};
-</code></pre>
-> + count 바뀔 때마다 handleClick 새로생성, Child 리렌더
+```jsx
+const [state, formAction, isPending] = useActionState(fn, initialState);
+// state: 현재 상태 | formAction: form의 action에 전달 | isPending: 처리 중 여부
+```
 
-+ useCallback 사용
-<pre><code>const Parent = () => {
-  const [count, setCount] = useState(0);
-
-  const handleClick = useCallback(() => {
-    console.log("클릭");
-  }, []);
-
-  return &lt;Child onClick={handleClick} />;
-};
-</code></pre>
-> + 함수 재사용됨, Child 불필요한 리렌더 방지
-
-
-### useActionState
-React의 비교적 최신 기능으로, 폼 액션(form action)이나 비동기 작업의 상태를 간단하게 관리하기 위한 Hook
-
-+ 기본구조
-<pre><code>const [state, action, isPending] = useActionState(fn, initialState);
-</code></pre>
-> + state: 현재 상태 값
-> + action: 실행할 함수(보통 form의 action으로 전달)
-> + isPending: 실행 중인지 여부(loading 상태)
-
-+ 간단 예시
-<pre><code>import { useActionState } from "react";
-
+```jsx
 async function submitForm(prevState, formData) {
   const name = formData.get("name");
-
-  if (!name) {
-    return { error: "이름을 입력하세요" };
-  }
-
+  if (!name) return { error: "이름을 입력하세요" };
   return { success: `안녕하세요, ${name}` };
 }
 
 export default function MyForm() {
   const [state, formAction, isPending] = useActionState(submitForm, {});
-
   return (
-    &lt;form action={formAction}>
-      &lt;input name="name" />
-      &lt;button disabled={isPending}>제출&lt;/button>
-
-      {state.error && &lt;p>{state.error}&lt;/p>}
-      {state.success && &lt;p>{state.success}&lt;/p>}
-    &lt;/form>
+    <form action={formAction}>
+      <input name="name" />
+      <button disabled={isPending}>제출</button>
+      {state.error && <p>{state.error}</p>}
+      {state.success && <p>{state.success}</p>}
+    </form>
   );
 }
-</code></pre>
+```
 
+---
 
-### Redux
-컴포넌트 간 상태 공유를 위한 부분으로 중앙 상태 관리 시스템이다. 특히 컴포넌트 트리가 깊어질수롤 prop 전달이 복잡해질 때 사용한다.
+## 4. 상태 관리
 
-+ 기존 문제점
-<pre><code>function App() {
-  const [count, setCount] = useState(0);
-  return &lt;Child count={count} setCount={setCount} />;
-}
-</code></pre>
-> + 컴포넌트가 깊어질수록 props 계속 내려줘야 함(props drilling)
-> + 여러 컴포넌트에서 같은 상태를 써야 하면 관리가 어려움
+### Redux Toolkit
 
+컴포넌트 트리가 깊거나 여러 컴포넌트가 같은 상태를 공유할 때 사용합니다.
 
-##### React + Redux 기본 구성
-+ store 생성
-<pre><code>// store.js
-import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./counterSlice";
-
-export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
-});
-</code></pre>
-
-+ Provider로 React에 연결
-<pre><code>import { Provider } from "react-redux";
-import { store } from "./store";
-
-function App() {
-  return (
-    &lt;Provider store={store}>
-      &lt;Counter />
-    &lt;/Provider>
-  );
-}
-</code></pre>
-
-+ slice 만들기 (Reducer + Action 합친 개념)
-<pre><code>// counterSlice.js
-import { createSlice } from "@reduxjs/toolkit";
-
+```jsx
+// 1. slice 생성 (Reducer + Action 통합)
 const counterSlice = createSlice({
   name: "counter",
   initialState: { value: 0 },
   reducers: {
-    increment: (state) => {
-      state.value += 1; // 직접 수정처럼 보이지만 내부적으로 안전하게 처리됨
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
+    increment: (state) => { state.value += 1; },
+    decrement: (state) => { state.value -= 1; },
   },
 });
-
 export const { increment, decrement } = counterSlice.actions;
 export default counterSlice.reducer;
-</code></pre>
 
-+ React 컴포넌트에서 사용
-<pre><code>import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "./counterSlice";
+// 2. store 생성
+export const store = configureStore({
+  reducer: { counter: counterReducer },
+});
 
-function Counter() {
-  const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
+// 3. Provider로 연결
+<Provider store={store}><App /></Provider>
 
-  return (
-    &lt;div>
-      &lt;h1>{count}&lt;/h1>
-      &lt;button onClick={() => dispatch(increment())}>+&lt;/button>
-      &lt;button onClick={() => dispatch(decrement())}>-&lt;/button>
-    &lt;/div>
-  );
-}
-</code></pre>
+// 4. 컴포넌트에서 사용
+const count = useSelector((state) => state.counter.value);
+const dispatch = useDispatch();
+<button onClick={() => dispatch(increment())}>+</button>
+```
+
+---
 
 ### Zustand
-전역 상태 관리(Global State Management) 도구.
 
-+ 설치
-<pre><code>npm install zustand</code></pre>
+Redux보다 간결한 전역 상태 관리 라이브러리입니다.
 
-+ store 생성
-<pre><code>import { create } from 'zustand'
+```bash
+npm install zustand
+```
 
+```jsx
+// store 생성
 const useStore = create((set) => ({
   count: 0,
   increase: () => set((state) => ({ count: state.count + 1 })),
-}))
-</code></pre>
+}));
 
-+ 컴포넌트에서 사용
-<pre><code>function Counter() {
-  const count = useStore((state) => state.count)
-  const increase = useStore((state) => state.increase)
-
-  return (
-    &lt;div>
-      &lt;p>{count}&lt;/p>
-      &lt;button onClick={increase}>+&lt;/button>
-    &lt;/div>
-  )
+// 컴포넌트에서 사용
+function Counter() {
+  const count = useStore((state) => state.count);
+  const increase = useStore((state) => state.increase);
+  return <div><p>{count}</p><button onClick={increase}>+</button></div>;
 }
-</code></pre>
 
-+ 상태값 localStorage에 저장
-<pre><code>import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
-
-export const useStore = create(
+// localStorage 영속화
+const useStore = create(
   persist(
     (set) => ({
       count: 0,
       increase: () => set((s) => ({ count: s.count + 1 })),
     }),
-    {
-      name: 'counter-storage', // 저장 key
-    }
+    { name: "counter-storage" }
   )
-)
-</code></pre>
-
-
-### Router
-페이지 새로고침 없이 URL만 바꿔서 화면을 전환하는 기술
-+ 라우터 시작점
-<pre><code>import { BrowserRouter } from "react-router-dom";
-
-&lt;BrowserRouter>
-  &lt;App />
-&lt;/BrowserRouter>
-</code></pre>
-
-+ Routes,  Route
-<pre><code>import { Routes, Route } from "react-router-dom";
-
-&lt;Routes>
-  &lt;Route path="/" element={&lt;Home />} />
-  &lt;Route path="/about" element={&lt;About />} />
-&lt;/Routes>
-</code></pre>
-
-+ 페이지 이동
-<pre><code>import { useNavigate } from "react-router-dom";
-
-const navigate = useNavigate();
-
-navigate("/about");
-</code></pre>
-
-
-### 환경변수
-#### 환경변수 파일 생성
-프로젝트 루트에 .env 파일 생성
-+ 로컬: .env.local
-+ 개발: .env.development
-+ 검증: .env.staging
-+ 운영: .env.production
-
-#### 환경변수 설정
-+ .env 파일내에 작성
-<pre><code>VITE_MAIN_URL=/main
-</code></pre>
-> vite 프로젝트 기준 prefix는 'VITE'로 시작해야 함
-
-#### 환경변수 사용
-<pre><code>const mainUrl = import.meta.env.VITE_MAIN_URL as string;
-</code></pre>
-
-#### build
-npm run build를 통해서 빌드 가능하며 빌드시 프로젝트 루트에 dist 폴더 생성됨
-+ 운영: npm run build
-+ 개발: npm run build:development
-+ 검증: npm run build:staging
-
-#### build 파일 실행 테스트
-<pre><code>npx serve dist
-</code></pre>
-
-
-### 기타
-+ null 또는 undefined이면 "" (빈 문자열)을 사용
-<pre><code>(ref.file_name ?? "").trim();
-
-=> ref.file_name이 null 또는 undefined이면 "" (빈 문자열)을 사용
-</code></pre>
-
-+ data 화면 처리
-<pre><code>return (
-    &lt;ul>
-      {data.map((user) => (
-        &lt;li key={user.id}>{user.name}&lt;/li>
-      ))}
-    &lt;/ul>
 );
-</code></pre>
+```
 
-+ onClick 이벤트
-<pre><code>const App = () => {
-  const handleClick = () => {
-    console.log("clicked");
-  };
+---
 
-  return &lt;button onClick={handleClick}>클릭&lt;/button>;
-}
-</code></pre>
+## 5. 라우팅 (React Router)
 
-+ onChange 이벤트
-<pre><code>import { useState } from "react";
+페이지 새로고침 없이 URL만 바꿔 화면을 전환합니다.
 
-const App = () => {
-  const [value, setValue] = useState("");
+```jsx
+// 진입점
+<BrowserRouter><App /></BrowserRouter>
 
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  };
+// 라우트 정의
+<Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/about" element={<About />} />
+</Routes>
 
-  return &lt;input value={value} onChange={handleChange} />;
-}
-</code></pre>
+// 페이지 이동
+const navigate = useNavigate();
+navigate("/about");
+```
 
-+ (onKeyDown / onKeyUp) 이벤트
-<pre><code>const handleKeyDown = (e) => {
-  if (e.key === "Enter") {
-    console.log("엔터 입력");
-  }
-};
+---
 
-&lt;input onKeyDown={handleKeyDown} />
-</code></pre>
+## 6. 환경 변수
 
-+ debounce 이벤트 (검색 입력)
-<pre><code>import { useEffect, useState } from "react";
+| 파일 | 설명 |
+|------|------|
+| `.env.local` | 로컬 개발 (git 제외) |
+| `.env.development` | 개발 환경 |
+| `.env.staging` | 검증 환경 |
+| `.env.production` | 운영 환경 |
 
+```bash
+# Vite는 VITE_ 접두사 필수
+VITE_API_URL=https://api.example.com
+```
+
+```tsx
+const apiUrl = import.meta.env.VITE_API_URL as string;
+```
+
+### 빌드
+
+```bash
+npm run build             # 운영 빌드 (dist/ 폴더 생성)
+npm run build:development # 개발 환경 빌드
+npm run build:staging     # 검증 환경 빌드
+
+npx serve dist            # 빌드 결과 로컬 실행 테스트
+```
+
+---
+
+## 7. 주요 이벤트 패턴
+
+```jsx
+// onClick
+<button onClick={handleClick}>클릭</button>
+
+// onChange (입력)
+<input value={value} onChange={(e) => setValue(e.target.value)} />
+
+// onKeyDown
+<input onKeyDown={(e) => { if (e.key === "Enter") console.log("엔터"); }} />
+
+// 체크박스
+<input type="checkbox" checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+
+// 파일 업로드
+<input type="file" onChange={(e) => console.log(e.target.files[0])} />
+
+// 리스트 렌더링
+<ul>{data.map((user) => <li key={user.id}>{user.name}</li>)}</ul>
+
+// null/undefined 방어
+(ref.file_name ?? "").trim();
+```
+
+### debounce (검색 입력 최적화)
+
+```jsx
 function useDebounce(value, delay) {
   const [debounced, setDebounced] = useState(value);
 
   useEffect(() => {
     const timer = setTimeout(() => setDebounced(value), delay);
     return () => clearTimeout(timer);
-  }, [value]);
+  }, [value, delay]); // delay도 의존성에 포함
 
   return debounced;
 }
-------------------------------------
-사용
+
+// 사용
 const [text, setText] = useState("");
 const debouncedText = useDebounce(text, 500);
-</code></pre>
-
-+ 체크박스 / radio
-<pre><code>const [checked, setChecked] = useState(false);
-
-&lt;input
-  type="checkbox"
-  checked={checked}
-  onChange={(e) => setChecked(e.target.checked)}
-/>
-</code></pre>
-
-+ 파일 업로드
-<pre><code>const handleFileChange = (e) => {
-  const file = e.target.files[0];
-  console.log(file);
-};
-
-&lt;input type="file" onChange={handleFileChange} />
-
- 
-</code></pre>
-
-
-
+```
