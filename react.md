@@ -430,3 +430,456 @@ function useDebounce(value, delay) {
 const [text, setText] = useState("");
 const debouncedText = useDebounce(text, 500);
 ```
+
+---
+
+## 8. Next.js
+
+### 개요
+
+Next.js는 React 기반의 풀스택 웹 프레임워크입니다. React만으로는 클라이언트 렌더링(CSR)만 가능하지만, Next.js는 SSR·SSG·ISR을 추가로 지원하고 파일 시스템 기반 라우팅, API Routes, 이미지 최적화 등을 내장합니다.
+
+| 렌더링 방식 | 설명 | 적합 상황 |
+|------------|------|----------|
+| SSR (Server-Side Rendering) | 요청마다 서버에서 HTML 생성 | 실시간 데이터, 개인화 페이지 |
+| SSG (Static Site Generation) | 빌드 시 HTML 미리 생성 | 블로그, 문서, 마케팅 페이지 |
+| ISR (Incremental Static Regeneration) | SSG + 일정 주기 재생성 | 반정적 데이터 (상품 목록 등) |
+| CSR (Client-Side Rendering) | 브라우저에서 JS로 렌더링 | 사용자 인터랙션 중심 UI |
+
+---
+
+### 프로젝트 생성
+
+```bash
+npx create-next-app@latest
+# 프로젝트명 입력
+# TypeScript: Yes
+# ESLint: Yes
+# Tailwind CSS: Yes/No
+# src/ 디렉토리: Yes/No
+# App Router: Yes (권장)
+
+cd <프로젝트명>
+npm run dev   # → http://localhost:3000
+```
+
+---
+
+### 프로젝트 구조 (App Router 기준)
+
+```
+my-app/
+├─ public/                  # 정적 파일 (/파일명으로 접근)
+├─ src/
+│   └─ app/
+│       ├─ layout.tsx       # 공통 레이아웃 (전체 페이지 공통 적용)
+│       ├─ page.tsx         # / 루트 페이지
+│       ├─ globals.css      # 전역 CSS
+│       ├─ about/
+│       │   └─ page.tsx     # /about 페이지
+│       ├─ blog/
+│       │   ├─ page.tsx     # /blog 페이지
+│       │   └─ [id]/
+│       │       └─ page.tsx # /blog/:id 동적 라우트
+│       └─ api/
+│           └─ hello/
+│               └─ route.ts # /api/hello API Route
+├─ next.config.ts           # Next.js 설정
+├─ tsconfig.json
+└─ package.json
+```
+
+---
+
+### App Router vs Pages Router
+
+Next.js 13부터 App Router가 도입되었으며, 현재는 App Router 사용이 권장됩니다.
+
+| 구분 | App Router (`app/`) | Pages Router (`pages/`) |
+|------|---------------------|------------------------|
+| 도입 | Next.js 13+ (권장) | Next.js 초기부터 |
+| 기본 컴포넌트 | 서버 컴포넌트 | 클라이언트 컴포넌트 |
+| 레이아웃 | `layout.tsx` 중첩 | `_app.tsx` 단일 |
+| 데이터 페칭 | `async/await` 직접 | `getServerSideProps` 등 |
+| API Routes | `app/api/route.ts` | `pages/api/*.ts` |
+
+---
+
+### 서버 컴포넌트 vs 클라이언트 컴포넌트
+
+App Router에서 모든 컴포넌트는 기본적으로 **서버 컴포넌트**입니다.
+
+```tsx
+// 서버 컴포넌트 (기본값) - 파일 상단에 지시어 없음
+// DB 접근, API 호출 가능 / useState·useEffect 사용 불가
+async function ProductList() {
+  const products = await fetch("https://api.example.com/products").then(r => r.json());
+  return (
+    <ul>
+      {products.map(p => <li key={p.id}>{p.name}</li>)}
+    </ul>
+  );
+}
+```
+
+```tsx
+// 클라이언트 컴포넌트 - 파일 최상단에 "use client" 필수
+"use client";
+
+import { useState } from "react";
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  return <button onClick={() => setCount(count + 1)}>{count}</button>;
+}
+```
+
+| 기능 | 서버 컴포넌트 | 클라이언트 컴포넌트 |
+|------|:---:|:---:|
+| useState / useEffect | ✗ | ✓ |
+| DB / 파일시스템 접근 | ✓ | ✗ |
+| 번들 크기 영향 | 없음 | 있음 |
+| 이벤트 핸들러 | ✗ | ✓ |
+| 브라우저 API | ✗ | ✓ |
+
+---
+
+### 라우팅 (App Router)
+
+파일 시스템 구조가 그대로 URL이 됩니다.
+
+```
+app/page.tsx              → /
+app/about/page.tsx        → /about
+app/blog/[id]/page.tsx    → /blog/:id       (동적 라우트)
+app/shop/[...slug]/page.tsx → /shop/a/b/c  (catch-all)
+app/(auth)/login/page.tsx → /login          ((그룹)은 URL에 미포함)
+app/dashboard/layout.tsx  → /dashboard 하위 공통 레이아웃
+```
+
+```tsx
+// 동적 라우트 파라미터 사용
+export default async function BlogPost({ params }: { params: { id: string } }) {
+  const post = await fetch(`/api/posts/${params.id}`).then(r => r.json());
+  return <h1>{post.title}</h1>;
+}
+
+// 클라이언트 사이드 이동
+"use client";
+import { useRouter } from "next/navigation";
+
+const router = useRouter();
+router.push("/about");
+router.back();
+
+// Link 컴포넌트 (prefetch 자동 지원)
+import Link from "next/link";
+<Link href="/about">About</Link>
+```
+
+---
+
+### 레이아웃
+
+`layout.tsx`는 해당 경로와 하위 모든 페이지에 공통으로 적용됩니다.
+
+```tsx
+// app/layout.tsx - 전체 공통 레이아웃
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="ko">
+      <body>
+        <header>공통 헤더</header>
+        <main>{children}</main>
+        <footer>공통 푸터</footer>
+      </body>
+    </html>
+  );
+}
+
+// app/dashboard/layout.tsx - /dashboard 하위에만 적용
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div>
+      <aside>사이드바</aside>
+      <section>{children}</section>
+    </div>
+  );
+}
+```
+
+---
+
+### 데이터 페칭
+
+```tsx
+// 서버 컴포넌트에서 직접 fetch (SSR)
+async function Page() {
+  const data = await fetch("https://api.example.com/data", {
+    cache: "no-store",          // SSR: 매 요청마다 새 데이터
+    // cache: "force-cache",    // SSG: 빌드 시 1회 (기본값)
+    // next: { revalidate: 60 } // ISR: 60초마다 재생성
+  }).then(r => r.json());
+
+  return <div>{data.title}</div>;
+}
+
+// 클라이언트 컴포넌트에서 fetch (CSR)
+"use client";
+export default function Page() {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    fetch("/api/data").then(r => r.json()).then(setData);
+  }, []);
+  return <div>{data?.title}</div>;
+}
+```
+
+---
+
+### API Routes
+
+`app/api/` 경로에 `route.ts` 파일로 백엔드 API를 작성합니다.
+
+```tsx
+// app/api/users/route.ts
+import { NextRequest, NextResponse } from "next/server";
+
+// GET /api/users
+export async function GET() {
+  const users = [{ id: 1, name: "kim" }];
+  return NextResponse.json(users);
+}
+
+// POST /api/users
+export async function POST(request: NextRequest) {
+  const body = await request.json();
+  return NextResponse.json({ created: body }, { status: 201 });
+}
+```
+
+```tsx
+// app/api/users/[id]/route.ts
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  return NextResponse.json({ id: params.id });
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  return NextResponse.json({ deleted: params.id });
+}
+```
+
+---
+
+### 환경 변수
+
+```bash
+# .env.local
+NEXT_PUBLIC_API_URL=https://api.example.com  # 브라우저에서 접근 가능
+DB_PASSWORD=secret                            # 서버에서만 접근 가능
+```
+
+```tsx
+// 클라이언트 (NEXT_PUBLIC_ 접두사 필수)
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+// 서버 컴포넌트 / API Route (접두사 불필요)
+const dbPassword = process.env.DB_PASSWORD;
+```
+
+> Vite는 `VITE_` 접두사, Next.js는 `NEXT_PUBLIC_` 접두사를 사용합니다.
+
+---
+
+### 빌드 및 배포
+
+```bash
+npm run build   # .next/ 폴더에 최적화된 빌드 생성
+npm run start   # 프로덕션 서버 실행 (빌드 후)
+npm run lint    # ESLint 검사
+```
+
+```ts
+// next.config.ts - 주요 설정
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  images: {
+    domains: ["cdn.example.com"],  // 외부 이미지 도메인 허용
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "http://backend:8080/:path*",  // API 프록시
+      },
+    ];
+  },
+};
+
+export default nextConfig;
+```
+
+---
+
+## 9. 외부 JS 파일 적용
+
+### 방법 1: next/script (Next.js 권장)
+
+Next.js 환경에서 외부 스크립트를 로드할 때 사용합니다. `strategy`로 로드 시점을 제어합니다.
+
+```tsx
+import Script from "next/script";
+
+// app/layout.tsx 또는 개별 page.tsx에 추가
+export default function Layout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+
+        {/* beforeInteractive: HTML 파싱 전 로드 (폴리필 등) */}
+        <Script src="/js/polyfill.js" strategy="beforeInteractive" />
+
+        {/* afterInteractive: 페이지 인터랙티브 후 로드 (기본값, GA 등) */}
+        <Script src="https://cdn.example.com/sdk.js" strategy="afterInteractive" />
+
+        {/* lazyOnload: 유휴 시간에 로드 (채팅 위젯 등) */}
+        <Script src="https://cdn.example.com/chat.js" strategy="lazyOnload" />
+
+        {/* 로드 완료 후 콜백 */}
+        <Script
+          src="https://cdn.example.com/map.js"
+          strategy="afterInteractive"
+          onLoad={() => console.log("지도 스크립트 로드 완료")}
+          onError={() => console.error("스크립트 로드 실패")}
+        />
+      </body>
+    </html>
+  );
+}
+```
+
+---
+
+### 방법 2: public 폴더에 JS 파일 배치
+
+프로젝트 내 자체 JS 파일(외부 솔루션 파일 등)을 적용할 때 사용합니다.
+
+```
+my-app/
+└─ public/
+    └─ js/
+        └─ solution.js     # /js/solution.js 로 접근
+```
+
+```tsx
+// Next.js: next/script로 로드
+<Script src="/js/solution.js" strategy="afterInteractive" />
+
+// React(Vite): index.html에 직접 추가
+// index.html
+<script src="/js/solution.js" defer></script>
+```
+
+---
+
+### 방법 3: useEffect로 동적 로드 (React 범용)
+
+조건부로 스크립트를 로드하거나, 특정 컴포넌트 마운트 시점에만 로드할 때 사용합니다.
+
+```tsx
+"use client";
+import { useEffect } from "react";
+
+export default function MapComponent() {
+  useEffect(() => {
+    // 이미 로드된 경우 중복 로드 방지
+    if (document.getElementById("map-script")) return;
+
+    const script = document.createElement("script");
+    script.id = "map-script";
+    script.src = "https://cdn.example.com/map.js";
+    script.async = true;
+    script.onload = () => {
+      // 스크립트 로드 후 초기화
+      window.initMap();
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      // 컴포넌트 언마운트 시 정리 (선택)
+      document.getElementById("map-script")?.remove();
+    };
+  }, []);
+
+  return <div id="map" style={{ width: "100%", height: "400px" }} />;
+}
+```
+
+---
+
+### 방법 4: 인라인 스크립트 실행
+
+서드파티 초기화 코드를 인라인으로 삽입할 때 사용합니다.
+
+```tsx
+// Next.js - dangerouslySetInnerHTML 사용
+import Script from "next/script";
+
+<Script id="gtag-init" strategy="afterInteractive">
+  {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  `}
+</Script>
+```
+
+---
+
+### 외부 JS에서 선언된 전역 변수 사용 (TypeScript)
+
+외부 스크립트가 `window` 객체에 전역 변수를 추가하는 경우 타입 오류가 발생합니다.
+
+```ts
+// types/global.d.ts - 전역 타입 선언
+declare global {
+  interface Window {
+    kakao: any;        // 카카오 지도 SDK
+    gtag: Function;    // Google Analytics
+    initMap: () => void;
+  }
+}
+
+export {};
+```
+
+```tsx
+// 사용
+useEffect(() => {
+  if (window.kakao) {
+    window.kakao.maps.load(() => {
+      const map = new window.kakao.maps.Map(/* ... */);
+    });
+  }
+}, []);
+```
+
+---
+
+### 방법 비교
+
+| 방법 | 환경 | 로드 제어 | 적합 상황 |
+|------|------|----------|----------|
+| `next/script` | Next.js | strategy로 세밀하게 제어 | CDN 라이브러리, GA, 채팅 위젯 |
+| `public/` + Script 태그 | React/Next.js | defer / async | 내부 솔루션 JS 파일 |
+| `useEffect` 동적 로드 | React/Next.js | 마운트 시점 | 조건부·컴포넌트 단위 로드 |
+| 인라인 스크립트 | React/Next.js | 즉시 실행 | 초기화 코드, 트래킹 픽셀 |
