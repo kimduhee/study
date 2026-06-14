@@ -883,3 +883,246 @@ useEffect(() => {
 | `public/` + Script 태그 | React/Next.js | defer / async | 내부 솔루션 JS 파일 |
 | `useEffect` 동적 로드 | React/Next.js | 마운트 시점 | 조건부·컴포넌트 단위 로드 |
 | 인라인 스크립트 | React/Next.js | 즉시 실행 | 초기화 코드, 트래킹 픽셀 |
+
+---
+
+## 10. 빌드 난독화 (Build Obfuscation)
+
+### 개념
+
+| 구분 | 설명 | 적용 범위 |
+|------|------|----------|
+| **Minification (압축)** | 공백·주석 제거, 변수명 단축 | 기본 빌드에 포함 |
+| **Obfuscation (난독화)** | 코드 구조 변형, 문자열 암호화, 제어 흐름 평탄화 | 별도 설정 필요 |
+
+> 난독화는 완전한 보안 수단이 아니며 해독 시간을 높이는 것이 목적입니다.
+> 난독화 수준이 높을수록 번들 크기 증가·실행 성능 저하가 발생합니다.
+
+---
+
+### React (Vite) 난독화
+
+#### 기본 압축 설정 (esbuild / terser)
+
+Vite는 기본적으로 esbuild로 압축합니다. 더 강력한 압축이 필요하면 terser를 사용합니다.
+
+```bash
+npm install --save-dev terser
+```
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig({
+  plugins: [react()],
+  build: {
+    minify: "terser",       // 기본값: "esbuild" (빠름) | "terser" (더 강력)
+    terserOptions: {
+      compress: {
+        drop_console: true,   // console.log 제거
+        drop_debugger: true,  // debugger 구문 제거
+        pure_funcs: ["console.info", "console.warn"],
+      },
+      mangle: {
+        toplevel: true,       // 최상위 변수·함수명 난독화
+      },
+      format: {
+        comments: false,      // 주석 전체 제거
+      },
+    },
+  },
+});
+```
+
+#### javascript-obfuscator 플러그인 (고급 난독화)
+
+```bash
+npm install --save-dev vite-plugin-obfuscator
+```
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import obfuscatorPlugin from "vite-plugin-obfuscator";
+
+export default defineConfig({
+  plugins: [
+    react(),
+    obfuscatorPlugin({
+      apply: "build",           // 빌드 시에만 적용
+      options: {
+        // 문자열 배열로 추출 후 간접 참조
+        stringArray: true,
+        stringArrayEncoding: ["base64"],   // "none" | "base64" | "rc4"
+        stringArrayThreshold: 0.75,        // 75% 확률로 문자열 추출
+
+        // 제어 흐름 평탄화 (성능 저하 주의)
+        controlFlowFlattening: true,
+        controlFlowFlatteningThreshold: 0.5,
+
+        // 변수·함수명 난독화
+        identifierNamesGenerator: "hexadecimal",  // "hexadecimal" | "mangled"
+
+        // 데드 코드 삽입
+        deadCodeInjection: true,
+        deadCodeInjectionThreshold: 0.2,
+
+        // 디버깅 방지
+        disableConsoleOutput: true,
+        debugProtection: false,            // true 설정 시 DevTools 성능 저하
+
+        // 소스맵 제거
+        sourceMap: false,
+      },
+    }),
+  ],
+});
+```
+
+---
+
+### Next.js 난독화
+
+#### SWC 기본 압축 (기본 활성화)
+
+Next.js는 기본적으로 SWC로 압축합니다. 별도 설정 없이도 minification이 적용됩니다.
+
+```ts
+// next.config.ts
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  swcMinify: true,   // 기본값 true, SWC 기반 압축
+};
+
+export default nextConfig;
+```
+
+#### Webpack + javascript-obfuscator (고급 난독화)
+
+```bash
+npm install --save-dev webpack-obfuscator javascript-obfuscator
+```
+
+```ts
+// next.config.ts
+import type { NextConfig } from "next";
+import WebpackObfuscator from "webpack-obfuscator";
+
+const nextConfig: NextConfig = {
+  webpack(config, { dev, isServer }) {
+    // 프로덕션 빌드, 클라이언트 번들에만 적용
+    if (!dev && !isServer) {
+      config.plugins.push(
+        new WebpackObfuscator(
+          {
+            stringArray: true,
+            stringArrayEncoding: ["base64"],
+            stringArrayThreshold: 0.75,
+            controlFlowFlattening: true,
+            controlFlowFlatteningThreshold: 0.3,
+            identifierNamesGenerator: "hexadecimal",
+            deadCodeInjection: false,    // 번들 크기 증가 주의
+            disableConsoleOutput: true,
+            sourceMap: false,
+          },
+          ["excluded_bundle.js"]         // 난독화 제외할 파일
+        )
+      );
+    }
+    return config;
+  },
+};
+
+export default nextConfig;
+```
+
+---
+
+### 난독화 주요 옵션
+
+| 옵션 | 설명 | 성능 영향 |
+|------|------|----------|
+| `stringArray` | 문자열을 배열로 추출 후 인덱스로 참조 | 낮음 |
+| `stringArrayEncoding` | 추출된 문자열 인코딩 (`base64`, `rc4`) | 낮음 |
+| `controlFlowFlattening` | if/else·loop를 switch 구조로 평탄화 | **높음** |
+| `deadCodeInjection` | 실행되지 않는 가짜 코드 삽입 | 중간 |
+| `identifierNamesGenerator` | 변수·함수명을 16진수 등으로 변환 | 낮음 |
+| `disableConsoleOutput` | `console.*` 호출 제거 | 없음 |
+| `debugProtection` | DevTools 열면 무한 루프 진입 | 없음 (UX 주의) |
+| `sourceMap: false` | 소스맵 생성 비활성화 | 없음 |
+
+---
+
+### 난독화 수준별 권장 설정
+
+```ts
+// 수준 1 - 기본 (성능 영향 최소)
+{
+  stringArray: true,
+  stringArrayEncoding: ["base64"],
+  stringArrayThreshold: 0.5,
+  identifierNamesGenerator: "hexadecimal",
+  disableConsoleOutput: true,
+  sourceMap: false,
+}
+
+// 수준 2 - 중간
+{
+  stringArray: true,
+  stringArrayEncoding: ["base64"],
+  stringArrayThreshold: 0.75,
+  controlFlowFlattening: true,
+  controlFlowFlatteningThreshold: 0.3,
+  identifierNamesGenerator: "hexadecimal",
+  deadCodeInjection: true,
+  deadCodeInjectionThreshold: 0.2,
+  disableConsoleOutput: true,
+  sourceMap: false,
+}
+
+// 수준 3 - 강력 (번들 크기·성능 저하 감수)
+{
+  stringArray: true,
+  stringArrayEncoding: ["rc4"],
+  stringArrayThreshold: 1,
+  controlFlowFlattening: true,
+  controlFlowFlatteningThreshold: 0.75,
+  identifierNamesGenerator: "hexadecimal",
+  deadCodeInjection: true,
+  deadCodeInjectionThreshold: 0.4,
+  disableConsoleOutput: true,
+  debugProtection: true,
+  sourceMap: false,
+}
+```
+
+---
+
+### 소스맵 노출 방지
+
+프로덕션 빌드에서 소스맵이 노출되면 난독화가 무의미해집니다.
+
+```ts
+// vite.config.ts
+export default defineConfig({
+  build: {
+    sourcemap: false,           // 소스맵 비활성화 (기본값: false)
+    // sourcemap: "hidden",     // 소스맵 생성하되 번들에 URL 미포함 (에러 추적용)
+  },
+});
+
+// next.config.ts
+const nextConfig: NextConfig = {
+  productionBrowserSourceMaps: false,  // 기본값: false
+};
+```
+
+| `sourcemap` 값 | 설명 |
+|---------------|------|
+| `false` | 소스맵 미생성 (프로덕션 권장) |
+| `true` | 소스맵 생성 + 번들에 URL 포함 (노출 위험) |
+| `"hidden"` | 소스맵 생성하되 번들에 URL 미포함 (Sentry 등 에러 추적용) |
