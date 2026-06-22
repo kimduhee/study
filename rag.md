@@ -10,6 +10,7 @@ RAG(Retrieval-Augmented Generation)은 LLM(대형 언어 모델)에 외부 문�
 ### 4)Store(Vector DB 저장)
 + 생성한 벡터를 검색 가능한 DB에 저장
 
+
 <img width="1000" height="800" alt="Image" src="https://github.com/user-attachments/assets/59dade53-f514-4023-8045-6e3cab929988" />
 
 
