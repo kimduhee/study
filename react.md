@@ -1126,3 +1126,199 @@ const nextConfig: NextConfig = {
 | `false` | 소스맵 미생성 (프로덕션 권장) |
 | `true` | 소스맵 생성 + 번들에 URL 포함 (노출 위험) |
 | `"hidden"` | 소스맵 생성하되 번들에 URL 미포함 (Sentry 등 에러 추적용) |
+
+---
+
+## 11. 브라우저 스토리지
+
+### 종류 비교
+
+| 구분 | localStorage | sessionStorage | Cookie | IndexedDB |
+|------|:---:|:---:|:---:|:---:|
+| 만료 | 명시적 삭제 전까지 영구 | 탭/창 닫으면 삭제 | 만료일 설정 가능 | 명시적 삭제 전까지 영구 |
+| 용량 | ~5~10MB | ~5~10MB | ~4KB | 수백MB 이상 |
+| 서버 전송 | 안 됨 | 안 됨 | 매 요청마다 자동 전송 | 안 됨 |
+| 저장 형식 | 문자열만 | 문자열만 | 문자열만 | 객체/Blob 등 다양 |
+| 용도 | 로그인 토큰, 설정값 | 탭 단위 임시 상태 | 인증 세션(서버 검증 필요 시) | 대용량 구조화 데이터 |
+
+> 민감한 인증 정보(JWT 등)는 XSS에 취약한 localStorage보다 `httpOnly` 쿠키 저장이 보안상 더 안전합니다.
+
+---
+
+### localStorage / sessionStorage 기본 사용
+
+```js
+// 저장 - 값은 반드시 문자열, 객체는 JSON.stringify 필요
+localStorage.setItem("token", "abc123");
+localStorage.setItem("user", JSON.stringify({ id: 1, name: "kim" }));
+
+// 조회
+const token = localStorage.getItem("token");
+const user = JSON.parse(localStorage.getItem("user") ?? "null");
+
+// 삭제
+localStorage.removeItem("token");
+localStorage.clear(); // 전체 삭제
+
+// sessionStorage는 API 동일, 탭/창 닫으면 자동 삭제
+sessionStorage.setItem("formDraft", JSON.stringify(formData));
+```
+
+---
+
+### useState와 localStorage 동기화 (커스텀 훅)
+
+```tsx
+import { useState, useEffect } from "react";
+
+function useLocalStorage<T>(key: string, initialValue: T) {
+  const [value, setValue] = useState<T>(() => {
+    try {
+      const stored = localStorage.getItem(key);
+      return stored ? JSON.parse(stored) : initialValue;
+    } catch {
+      return initialValue;
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
+
+  return [value, setValue] as const;
+}
+
+// 사용
+function Settings() {
+  const [theme, setTheme] = useLocalStorage("theme", "light");
+  return (
+    <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+      현재 테마: {theme}
+    </button>
+  );
+}
+```
+
+### 다른 탭 간 동기화 (storage 이벤트)
+
+`storage` 이벤트는 **같은 키를 변경한 다른 탭**에서만 발생합니다 (현재 탭 자신은 감지 안 됨).
+
+```tsx
+useEffect(() => {
+  const handleStorageChange = (e: StorageEvent) => {
+    if (e.key === "token" && e.newValue === null) {
+      // 다른 탭에서 로그아웃(토큰 삭제) 시 현재 탭도 동기화
+      window.location.href = "/login";
+    }
+  };
+
+  window.addEventListener("storage", handleStorageChange);
+  return () => window.removeEventListener("storage", handleStorageChange);
+}, []);
+```
+
+---
+
+### Cookie 사용 (js-cookie)
+
+서버로 자동 전송되어야 하는 값(세션 등)은 쿠키를 사용합니다.
+
+```bash
+npm install js-cookie
+npm install --save-dev @types/js-cookie
+```
+
+```tsx
+import Cookies from "js-cookie";
+
+// 저장 (만료일, 옵션 설정 가능)
+Cookies.set("refreshToken", "xyz789", {
+  expires: 7,          // 7일 후 만료
+  secure: true,         // HTTPS에서만 전송
+  sameSite: "strict",   // CSRF 방지
+});
+
+// 조회
+const token = Cookies.get("refreshToken");
+
+// 삭제
+Cookies.remove("refreshToken");
+```
+
+> `httpOnly` 쿠키는 보안상 JS로 직접 설정/조회가 불가능하며, 반드시 **서버 응답의 `Set-Cookie` 헤더**로만 설정 가능합니다. 인증 토큰은 가능하면 이 방식을 사용합니다.
+
+```ts
+// 서버(Express)에서 httpOnly 쿠키 설정 예시
+res.cookie("accessToken", token, {
+  httpOnly: true,   // JS에서 document.cookie로 접근 불가 (XSS 방어)
+  secure: true,
+  sameSite: "strict",
+  maxAge: 1000 * 60 * 60, // 1시간
+});
+```
+
+---
+
+### IndexedDB (대용량 구조화 데이터)
+
+복잡한 쿼리나 대용량 데이터가 필요하면 `idb` 같은 래퍼 라이브러리를 사용합니다.
+
+```bash
+npm install idb
+```
+
+```ts
+import { openDB } from "idb";
+
+async function getDb() {
+  return openDB("my-app-db", 1, {
+    upgrade(db) {
+      db.createObjectStore("cache", { keyPath: "id" });
+    },
+  });
+}
+
+// 저장
+async function saveCache(id: string, data: unknown) {
+  const db = await getDb();
+  await db.put("cache", { id, data, savedAt: Date.now() });
+}
+
+// 조회
+async function getCache(id: string) {
+  const db = await getDb();
+  return db.get("cache", id);
+}
+```
+
+---
+
+### React Query / Zustand persist와의 비교
+
+상태 관리 라이브러리에서 자동으로 스토리지 동기화를 처리해주는 경우도 많습니다.
+
+```tsx
+// Zustand persist - localStorage 자동 동기화 (앞선 "4. 상태 관리" 섹션 참고)
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+
+const useAuthStore = create(
+  persist(
+    (set) => ({
+      token: null,
+      setToken: (token: string) => set({ token }),
+      logout: () => set({ token: null }),
+    }),
+    { name: "auth-storage" } // localStorage에 "auth-storage" 키로 자동 저장/복원
+  )
+);
+```
+
+| 방법 | 적합 상황 |
+|------|----------|
+| 직접 `localStorage` API | 단순 값 1~2개, 빠른 구현 |
+| `useLocalStorage` 커스텀 훅 | 컴포넌트 상태와 자동 동기화 필요 시 |
+| `js-cookie` | 서버 전송이 필요한 값 |
+| `httpOnly` 쿠키(서버 설정) | 인증 토큰 등 보안이 중요한 값 |
+| `idb` (IndexedDB) | 대용량·구조화된 오프라인 데이터 |
+| Zustand `persist` 등 | 전역 상태 + 영속화를 동시에 관리할 때 |
