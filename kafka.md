@@ -6,7 +6,6 @@ Apache Kafka는 LinkedIn에서 개발하고 2011년 오픈소스로 공개된 **
 대용량 실시간 데이터를 안정적으로 처리하기 위해 설계되었으며, 현재는 Apache Software Foundation에서 관리합니다.
 
 
-
 ### 핵심 특징
 
 | 특징 | 설명 |
