@@ -13,7 +13,6 @@ public class Application {
 </code></pre>
 
 
-
 # Bean 등록/의존성 주입
 ### @Component
 일반적인 Bean 등록
