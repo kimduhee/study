@@ -4,6 +4,7 @@
 
 ### 프로젝트 생성 (Vite)
 
+
 ```bash
 npm create vite@latest
 # 프로젝트명 입력 → React → TypeScript 선택
