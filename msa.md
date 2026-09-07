@@ -6,7 +6,6 @@ MSA(Microservices Architecture)는 하나의 대형 애플리케이션을 **독�
 
 각 서비스는 특정 비즈니스 기능을 담당하며, 독립적인 프로세스로 실행되고 경량 API(주로 HTTP/REST 또는 메시지 큐)를 통해 통신합니다.
 
-
 ### 모놀리식 vs MSA 비교
 
 | 구분 | 모놀리식 (Monolithic) | MSA (Microservices) |
