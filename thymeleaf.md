@@ -13,6 +13,7 @@ HTML 파일 그대로 브라우저에서 열어볼 수 있는 **Natural Template
 | 기본 경로 | `src/main/resources/templates/` |
 | 파일 확장자 | `.html` |
 
+
 ---
 
 ## 2. 설정 (Setup)
