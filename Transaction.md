@@ -6,7 +6,6 @@
 + Durability(지속성): commit 이후 데이터는 영구 저장
 
 
-
 # Spring에서 트랜잭션 사용방법
 Spring에서는 보통 선언적 트랜잭션을 사용한다.
 <pre><code>@Transactional 사용
