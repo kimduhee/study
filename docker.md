@@ -1,1 +1,2 @@
 docker run -it --rm -v C:\pjt\partner-front:/app -w /app rockylinux:8 bash
+
