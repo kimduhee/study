@@ -14,6 +14,7 @@
 - 우선 개발(dev) 클러스터만 구성하고, 운영(prod)은 나중에 별도 클러스터 + 별도 ArgoCD로 추가한다.
 - 모든 명령은 PowerShell 기준.
 
+
 ```
 [소스 수정] → 빌드 → 이미지 태그 갱신 → 매니페스트 repo push → ArgoCD가 감지 → 클러스터 반영
                                        (Gitea)                (ArgoCD 담당 구간)
